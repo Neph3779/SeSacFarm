@@ -13,6 +13,8 @@
 		32941E2B278278B10084159C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32941E29278278B10084159C /* Main.storyboard */; };
 		32941E2D278278B30084159C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32941E2C278278B30084159C /* Assets.xcassets */; };
 		32941E30278278B30084159C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32941E2E278278B30084159C /* LaunchScreen.storyboard */; };
+		32DEF38427827AB4002D8CD9 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 32DEF38327827AB4002D8CD9 /* .swiftlint.yml */; };
+		32DEF38727827AEC002D8CD9 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 32DEF38627827AEC002D8CD9 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,7 @@
 		32941E2C278278B30084159C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		32941E2F278278B30084159C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		32941E31278278B30084159C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		32DEF38327827AB4002D8CD9 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32DEF38727827AEC002D8CD9 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +44,7 @@
 		32941E17278278B10084159C = {
 			isa = PBXGroup;
 			children = (
+				32DEF38327827AB4002D8CD9 /* .swiftlint.yml */,
 				32941E22278278B10084159C /* SeSacFarm */,
 				32941E21278278B10084159C /* Products */,
 			);
@@ -77,12 +82,16 @@
 				32941E1C278278B10084159C /* Sources */,
 				32941E1D278278B10084159C /* Frameworks */,
 				32941E1E278278B10084159C /* Resources */,
+				32DEF38227827A8F002D8CD9 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = SeSacFarm;
+			packageProductDependencies = (
+				32DEF38627827AEC002D8CD9 /* SnapKit */,
+			);
 			productName = SeSacFarm;
 			productReference = 32941E20278278B10084159C /* SeSacFarm.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +120,9 @@
 				Base,
 			);
 			mainGroup = 32941E17278278B10084159C;
+			packageReferences = (
+				32DEF38527827AEC002D8CD9 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 32941E21278278B10084159C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -125,6 +137,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32DEF38427827AB4002D8CD9 /* .swiftlint.yml in Resources */,
 				32941E30278278B30084159C /* LaunchScreen.storyboard in Resources */,
 				32941E2D278278B30084159C /* Assets.xcassets in Resources */,
 				32941E2B278278B10084159C /* Main.storyboard in Resources */,
@@ -132,6 +145,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		32DEF38227827A8F002D8CD9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		32941E1C278278B10084159C /* Sources */ = {
@@ -358,6 +391,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		32DEF38527827AEC002D8CD9 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		32DEF38627827AEC002D8CD9 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 32DEF38527827AEC002D8CD9 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 32941E18278278B10084159C /* Project object */;
 }
