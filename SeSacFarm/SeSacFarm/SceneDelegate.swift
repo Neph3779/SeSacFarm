@@ -13,9 +13,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = StartingViewController()
+        window.rootViewController = UINavigationController(rootViewController: StartingViewController())
         window.makeKeyAndVisible()
         self.window = window
+
+        UINavigationBar.appearance().backIndicatorImage = UIImage(systemName: "arrow.backward")
+        UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.backward")
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

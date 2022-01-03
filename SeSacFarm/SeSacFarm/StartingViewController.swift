@@ -34,9 +34,24 @@ final class StartingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        // TODO: back button image 변경 트러블 슈팅 있었음 정리 필요
+        navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.backward")
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.backward")
+        navigationItem.backButtonTitle = ""
+
         setIntroductionStackView()
         setUserLoginStackView()
         setStartButton()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHidden = false
     }
 
     private func setIntroductionStackView() {
@@ -67,6 +82,7 @@ final class StartingViewController: UIViewController {
         alreadyUserLabel.textColor = .lightGray
         loginButton.setTitle(Text.login, for: .normal)
         loginButton.setTitleColor(.systemGreen, for: .normal)
+        loginButton.addTarget(self, action: #selector(moveToSignUpView), for: .touchUpInside)
         view.addSubview(userLoginStackView)
         [alreadyUserLabel, loginButton].forEach {
             userLoginStackView.addArrangedSubview($0)
@@ -76,16 +92,21 @@ final class StartingViewController: UIViewController {
         }
     }
 
-    private func setStartButton() {
+    private func setStartButton() { // TODO: 버튼 눌렀을때 fade? 되는거 공부해보기
         startButton.backgroundColor = .systemGreen
         startButton.setTitle("시작하기", for: .normal)
         startButton.setTitleColor(.white, for: .normal)
+        startButton.addTarget(self, action: #selector(moveToSignUpView), for: .touchUpInside)
         view.addSubview(startButton)
         startButton.snp.makeConstraints { button in
             button.centerX.equalTo(view)
             button.width.equalTo(view).multipliedBy(0.8)
             button.bottom.equalTo(userLoginStackView.snp.top).offset(-10)
         }
+    }
+
+    @objc private func moveToSignUpView() {
+        navigationController?.pushViewController(SignUpViewController(), animated: true)
     }
 }
 

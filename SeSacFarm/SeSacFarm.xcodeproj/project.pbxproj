@@ -10,11 +10,11 @@
 		32941E24278278B10084159C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32941E23278278B10084159C /* AppDelegate.swift */; };
 		32941E26278278B10084159C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32941E25278278B10084159C /* SceneDelegate.swift */; };
 		32941E28278278B10084159C /* StartingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32941E27278278B10084159C /* StartingViewController.swift */; };
-		32941E2B278278B10084159C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32941E29278278B10084159C /* Main.storyboard */; };
 		32941E2D278278B30084159C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32941E2C278278B30084159C /* Assets.xcassets */; };
 		32941E30278278B30084159C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32941E2E278278B30084159C /* LaunchScreen.storyboard */; };
 		32DEF38427827AB4002D8CD9 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 32DEF38327827AB4002D8CD9 /* .swiftlint.yml */; };
 		32DEF38727827AEC002D8CD9 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 32DEF38627827AEC002D8CD9 /* SnapKit */; };
+		32DEF3892782BDE0002D8CD9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DEF3882782BDE0002D8CD9 /* SignUpViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,11 +22,11 @@
 		32941E23278278B10084159C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		32941E25278278B10084159C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		32941E27278278B10084159C /* StartingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartingViewController.swift; sourceTree = "<group>"; };
-		32941E2A278278B10084159C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		32941E2C278278B30084159C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		32941E2F278278B30084159C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		32941E31278278B30084159C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32DEF38327827AB4002D8CD9 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		32DEF3882782BDE0002D8CD9 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +64,7 @@
 				32941E23278278B10084159C /* AppDelegate.swift */,
 				32941E25278278B10084159C /* SceneDelegate.swift */,
 				32941E27278278B10084159C /* StartingViewController.swift */,
-				32941E29278278B10084159C /* Main.storyboard */,
+				32DEF3882782BDE0002D8CD9 /* SignUpViewController.swift */,
 				32941E2C278278B30084159C /* Assets.xcassets */,
 				32941E2E278278B30084159C /* LaunchScreen.storyboard */,
 				32941E31278278B30084159C /* Info.plist */,
@@ -140,7 +140,6 @@
 				32DEF38427827AB4002D8CD9 /* .swiftlint.yml in Resources */,
 				32941E30278278B30084159C /* LaunchScreen.storyboard in Resources */,
 				32941E2D278278B30084159C /* Assets.xcassets in Resources */,
-				32941E2B278278B10084159C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,6 +172,7 @@
 			files = (
 				32941E28278278B10084159C /* StartingViewController.swift in Sources */,
 				32941E24278278B10084159C /* AppDelegate.swift in Sources */,
+				32DEF3892782BDE0002D8CD9 /* SignUpViewController.swift in Sources */,
 				32941E26278278B10084159C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -180,14 +180,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		32941E29278278B10084159C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				32941E2A278278B10084159C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		32941E2E278278B30084159C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
