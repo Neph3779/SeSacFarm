@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		321D5D842783C79400476813 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D5D832783C79400476813 /* PostTableViewCell.swift */; };
+		321D5D8A278522E400476813 /* PostWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D5D89278522E400476813 /* PostWriteViewController.swift */; };
 		32941E24278278B10084159C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32941E23278278B10084159C /* AppDelegate.swift */; };
 		32941E26278278B10084159C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32941E25278278B10084159C /* SceneDelegate.swift */; };
 		32941E28278278B10084159C /* StartingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32941E27278278B10084159C /* StartingViewController.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		321D5D832783C79400476813 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		321D5D89278522E400476813 /* PostWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostWriteViewController.swift; sourceTree = "<group>"; };
 		32941E20278278B10084159C /* SeSacFarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeSacFarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32941E23278278B10084159C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		32941E25278278B10084159C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				32941E25278278B10084159C /* SceneDelegate.swift */,
 				32941E27278278B10084159C /* StartingViewController.swift */,
 				321D5D832783C79400476813 /* PostTableViewCell.swift */,
+				321D5D89278522E400476813 /* PostWriteViewController.swift */,
 				32DEF3882782BDE0002D8CD9 /* SignUpViewController.swift */,
 				32941E2C278278B30084159C /* Assets.xcassets */,
 				32941E2E278278B30084159C /* LaunchScreen.storyboard */,
@@ -175,6 +178,7 @@
 			files = (
 				32941E28278278B10084159C /* StartingViewController.swift in Sources */,
 				32941E24278278B10084159C /* AppDelegate.swift in Sources */,
+				321D5D8A278522E400476813 /* PostWriteViewController.swift in Sources */,
 				321D5D842783C79400476813 /* PostTableViewCell.swift in Sources */,
 				32DEF3892782BDE0002D8CD9 /* SignUpViewController.swift in Sources */,
 				32941E26278278B10084159C /* SceneDelegate.swift in Sources */,
