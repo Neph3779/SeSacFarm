@@ -15,6 +15,16 @@ final class PostTableViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setTableView()
+        bindTableView()
+    }
+
+    private func setTableView() {
+        postTableView.register(PostTableViewCell.self,
+                           forCellReuseIdentifier: PostTableViewCell.reuseIdentifier)
+        postTableView.snp.makeConstraints { tableView in
+            tableView.edges.equalToSuperview()
+        }
     }
 
     private func bindTableView() {
