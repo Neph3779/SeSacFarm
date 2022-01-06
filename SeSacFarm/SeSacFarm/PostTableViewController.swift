@@ -22,7 +22,7 @@ final class PostTableViewController: UIViewController {
             to: postTableView.rx.items(
                 cellIdentifier: PostTableViewCell.reuseIdentifier,
                 cellType: PostTableViewCell.self)
-        ) { row, model, cell in
+        ) { _, model, cell in
             cell.setValues(nickname: model.id.description, description: model.text,
                            date: model.createdDate, replyCount: model.comments.count)
         }.disposed(by: disposeBag)

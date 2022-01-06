@@ -10,8 +10,18 @@ import RxSwift
 import RxCocoa
 
 final class PostTableViewModel {
-    let posts = PublishSubject<[Post]>()
+    var posts = PublishSubject<[Post]>()
 
     init() {
+        do {
+            _ = try SesacNetwork.shared.getPosts()
+                .bind(to: posts)
+        } catch SesacNetworkError.tokenExpired {
+
+        } catch SesacNetworkError.invalidResponse(let response) {
+            print(response)
+        } catch {
+
+        }
     }
 }
