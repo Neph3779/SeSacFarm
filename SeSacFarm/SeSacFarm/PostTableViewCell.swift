@@ -18,6 +18,12 @@ final class PostTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setNicknameLabel()
+        setDescriptionTextView()
+        setDateLabel()
+        setDivisionLine()
+        setReplyImageView()
+        setReplyLabel()
     }
 
     required init?(coder: NSCoder) {
@@ -26,7 +32,10 @@ final class PostTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
 
+    func setValues(nickname: String, description: String, date: Date, replyCount: Int) {
+        
     }
 
     private func setNicknameLabel() {

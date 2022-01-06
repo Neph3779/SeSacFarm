@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		321D5D842783C79400476813 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D5D832783C79400476813 /* PostTableViewCell.swift */; };
 		321D5D8A278522E400476813 /* PostWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D5D89278522E400476813 /* PostWriteViewController.swift */; };
+		321D5D8D27858A1C00476813 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 321D5D8C27858A1C00476813 /* RxCocoa */; };
+		321D5D8F27858A1C00476813 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 321D5D8E27858A1C00476813 /* RxSwift */; };
+		321D5D9727858E8500476813 /* SesacNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D5D9627858E8500476813 /* SesacNetwork.swift */; };
+		321D5D9B2785A2E800476813 /* Post+User+Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D5D9A2785A2E800476813 /* Post+User+Comment.swift */; };
+		321D5D9F2785FC3000476813 /* SesacNetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D5D9E2785FC3000476813 /* SesacNetworkError.swift */; };
+		321D5DA12786024300476813 /* RegisterLoginResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D5DA02786024300476813 /* RegisterLoginResult.swift */; };
+		321D5DA32786912700476813 /* PostTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D5DA22786912700476813 /* PostTableViewController.swift */; };
+		321D5DA5278691C600476813 /* PostTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D5DA4278691C600476813 /* PostTableViewModel.swift */; };
 		32941E24278278B10084159C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32941E23278278B10084159C /* AppDelegate.swift */; };
 		32941E26278278B10084159C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32941E25278278B10084159C /* SceneDelegate.swift */; };
 		32941E28278278B10084159C /* StartingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32941E27278278B10084159C /* StartingViewController.swift */; };
@@ -22,6 +30,12 @@
 /* Begin PBXFileReference section */
 		321D5D832783C79400476813 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		321D5D89278522E400476813 /* PostWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostWriteViewController.swift; sourceTree = "<group>"; };
+		321D5D9627858E8500476813 /* SesacNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SesacNetwork.swift; sourceTree = "<group>"; };
+		321D5D9A2785A2E800476813 /* Post+User+Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Post+User+Comment.swift"; sourceTree = "<group>"; };
+		321D5D9E2785FC3000476813 /* SesacNetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SesacNetworkError.swift; sourceTree = "<group>"; };
+		321D5DA02786024300476813 /* RegisterLoginResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterLoginResult.swift; sourceTree = "<group>"; };
+		321D5DA22786912700476813 /* PostTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewController.swift; sourceTree = "<group>"; };
+		321D5DA4278691C600476813 /* PostTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewModel.swift; sourceTree = "<group>"; };
 		32941E20278278B10084159C /* SeSacFarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeSacFarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32941E23278278B10084159C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		32941E25278278B10084159C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -38,6 +52,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				321D5D8F27858A1C00476813 /* RxSwift in Frameworks */,
+				321D5D8D27858A1C00476813 /* RxCocoa in Frameworks */,
 				32DEF38727827AEC002D8CD9 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -45,6 +61,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		321D5D9827859BDE00476813 /* EntryPoint */ = {
+			isa = PBXGroup;
+			children = (
+				32941E23278278B10084159C /* AppDelegate.swift */,
+				32941E25278278B10084159C /* SceneDelegate.swift */,
+			);
+			path = EntryPoint;
+			sourceTree = "<group>";
+		};
+		321D5D9927859C0000476813 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				32941E2C278278B30084159C /* Assets.xcassets */,
+				32941E2E278278B30084159C /* LaunchScreen.storyboard */,
+				32941E31278278B30084159C /* Info.plist */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		321D5D9C2785FAF200476813 /* NetworkModel */ = {
+			isa = PBXGroup;
+			children = (
+				321D5D9A2785A2E800476813 /* Post+User+Comment.swift */,
+				321D5DA02786024300476813 /* RegisterLoginResult.swift */,
+			);
+			path = NetworkModel;
+			sourceTree = "<group>";
+		};
+		321D5D9D2785FAFB00476813 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				321D5D9C2785FAF200476813 /* NetworkModel */,
+				321D5D9627858E8500476813 /* SesacNetwork.swift */,
+				321D5D9E2785FC3000476813 /* SesacNetworkError.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		32941E17278278B10084159C = {
 			isa = PBXGroup;
 			children = (
@@ -65,15 +119,15 @@
 		32941E22278278B10084159C /* SeSacFarm */ = {
 			isa = PBXGroup;
 			children = (
-				32941E23278278B10084159C /* AppDelegate.swift */,
-				32941E25278278B10084159C /* SceneDelegate.swift */,
+				321D5D9827859BDE00476813 /* EntryPoint */,
 				32941E27278278B10084159C /* StartingViewController.swift */,
 				321D5D832783C79400476813 /* PostTableViewCell.swift */,
+				321D5DA22786912700476813 /* PostTableViewController.swift */,
+				321D5DA4278691C600476813 /* PostTableViewModel.swift */,
 				321D5D89278522E400476813 /* PostWriteViewController.swift */,
 				32DEF3882782BDE0002D8CD9 /* SignUpViewController.swift */,
-				32941E2C278278B30084159C /* Assets.xcassets */,
-				32941E2E278278B30084159C /* LaunchScreen.storyboard */,
-				32941E31278278B30084159C /* Info.plist */,
+				321D5D9D2785FAFB00476813 /* Network */,
+				321D5D9927859C0000476813 /* SupportingFiles */,
 			);
 			path = SeSacFarm;
 			sourceTree = "<group>";
@@ -97,6 +151,8 @@
 			name = SeSacFarm;
 			packageProductDependencies = (
 				32DEF38627827AEC002D8CD9 /* SnapKit */,
+				321D5D8C27858A1C00476813 /* RxCocoa */,
+				321D5D8E27858A1C00476813 /* RxSwift */,
 			);
 			productName = SeSacFarm;
 			productReference = 32941E20278278B10084159C /* SeSacFarm.app */;
@@ -128,6 +184,7 @@
 			mainGroup = 32941E17278278B10084159C;
 			packageReferences = (
 				32DEF38527827AEC002D8CD9 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				321D5D8B27858A1C00476813 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 32941E21278278B10084159C /* Products */;
 			projectDirPath = "";
@@ -179,9 +236,15 @@
 				32941E28278278B10084159C /* StartingViewController.swift in Sources */,
 				32941E24278278B10084159C /* AppDelegate.swift in Sources */,
 				321D5D8A278522E400476813 /* PostWriteViewController.swift in Sources */,
+				321D5D9B2785A2E800476813 /* Post+User+Comment.swift in Sources */,
 				321D5D842783C79400476813 /* PostTableViewCell.swift in Sources */,
+				321D5DA5278691C600476813 /* PostTableViewModel.swift in Sources */,
 				32DEF3892782BDE0002D8CD9 /* SignUpViewController.swift in Sources */,
+				321D5D9727858E8500476813 /* SesacNetwork.swift in Sources */,
 				32941E26278278B10084159C /* SceneDelegate.swift in Sources */,
+				321D5DA32786912700476813 /* PostTableViewController.swift in Sources */,
+				321D5D9F2785FC3000476813 /* SesacNetworkError.swift in Sources */,
+				321D5DA12786024300476813 /* RegisterLoginResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,7 +387,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 267JUTDVY2;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SeSacFarm/Info.plist;
+				INFOPLIST_FILE = SeSacFarm/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -351,7 +414,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 267JUTDVY2;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SeSacFarm/Info.plist;
+				INFOPLIST_FILE = SeSacFarm/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -393,6 +456,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		321D5D8B27858A1C00476813 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 		32DEF38527827AEC002D8CD9 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -404,6 +475,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		321D5D8C27858A1C00476813 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 321D5D8B27858A1C00476813 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		321D5D8E27858A1C00476813 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 321D5D8B27858A1C00476813 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
 		32DEF38627827AEC002D8CD9 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 32DEF38527827AEC002D8CD9 /* XCRemoteSwiftPackageReference "SnapKit" */;
