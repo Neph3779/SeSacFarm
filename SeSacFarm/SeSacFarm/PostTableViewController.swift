@@ -22,6 +22,7 @@ final class PostTableViewController: UIViewController {
     private func setTableView() {
         postTableView.register(PostTableViewCell.self,
                            forCellReuseIdentifier: PostTableViewCell.reuseIdentifier)
+        view.addSubview(postTableView)
         postTableView.snp.makeConstraints { tableView in
             tableView.edges.equalToSuperview()
         }

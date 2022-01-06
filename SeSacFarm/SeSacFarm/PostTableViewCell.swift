@@ -34,8 +34,8 @@ final class PostTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-    func setValues(nickname: String, description: String, date: Date, replyCount: Int) {
-        
+    func setValues(nickname: String, description: String, date: String, replyCount: Int) {
+
     }
 
     private func setNicknameLabel() {

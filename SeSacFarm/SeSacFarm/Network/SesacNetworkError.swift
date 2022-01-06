@@ -8,8 +8,10 @@
 import Foundation
 
 enum SesacNetworkError: Error {
-    case invalidResponse(response: HTTPURLResponse)
+    case invalidResponse(statusCode: Int)
     case noAccess
     case urlConvertFailed
     case tokenExpired
+    case unknownError
+    case jsonConvertingFailed
 }

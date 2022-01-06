@@ -18,7 +18,7 @@ final class SignUpViewModel {
     }
 
     private let disposeBag = DisposeBag()
-
+    let startButtonTapped = PublishSubject<Void>()
     let emailText = BehaviorSubject<String>(value: "")
     let nicknameText = BehaviorSubject<String>(value: "")
     let passwordText = BehaviorSubject<String>(value: "")
@@ -40,6 +40,9 @@ final class SignUpViewModel {
         _ = passwordCheckText.map(checkPasswordCheckValid(passwordCheck:))
             .bind(to: isPasswordCheckValid)
         bindPasswordisEqualToPasswordCheck()
+        _ = startButtonTapped.subscribe(onNext: { _ in
+            print("tapped")
+        })
     }
 
     private func checkEmailValid(email: String) -> Bool {

@@ -65,6 +65,16 @@ final class SignUpViewController: UIViewController {
                 }
             }.bind(to: startButton.rx.isEnabled)
             .disposed(by: disposeBag)
+
+        startButton.rx.tap
+            .subscribe(onNext: {
+                SesacNetwork.shared.login(identifier: self.emailTextField.text!, password: self.passwordTextField.text!) { _ in
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(PostTableViewController(), animated: true)
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     private func setNavigationBar() {

@@ -13,15 +13,13 @@ final class PostTableViewModel {
     var posts = PublishSubject<[Post]>()
 
     init() {
-        do {
-            _ = try SesacNetwork.shared.getPosts()
-                .bind(to: posts)
-        } catch SesacNetworkError.tokenExpired {
-
-        } catch SesacNetworkError.invalidResponse(let response) {
-            print(response)
-        } catch {
-
+        SesacNetwork.shared.getPosts { result in
+            switch result {
+            case .success(let resultPosts):
+                self.posts.onNext(resultPosts)
+            case .failure(let error):
+                print(error)
+            }
         }
     }
 }
