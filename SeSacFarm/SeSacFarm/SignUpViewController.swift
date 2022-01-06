@@ -60,6 +60,7 @@ final class SignUpViewController: UIViewController {
                     self.startButton.backgroundColor = .systemGreen
                     return true
                 } else {
+                    self.startButton.backgroundColor = .gray
                     return false
                 }
             }.bind(to: startButton.rx.isEnabled)
@@ -85,10 +86,10 @@ final class SignUpViewController: UIViewController {
             textField.borderStyle = .roundedRect
         }
 
-        emailTextField.placeholder = Text.emailPlaceholder
-        nicknameTextField.placeholder = Text.nicknamePlaceholder
-        passwordTextField.placeholder = Text.passwordPlaceholder
-        passwordCheckTextField.placeholder = Text.passwordCheckPlaceholder
+        emailTextField.placeholder = SignUpViewModel.Text.emailPlaceholder
+        nicknameTextField.placeholder = SignUpViewModel.Text.nicknamePlaceholder
+        passwordTextField.placeholder = SignUpViewModel.Text.passwordPlaceholder
+        passwordCheckTextField.placeholder = SignUpViewModel.Text.passwordCheckPlaceholder
     }
 
     private func setStartButton() {
@@ -96,14 +97,5 @@ final class SignUpViewController: UIViewController {
         startButton.setTitle("시작하기", for: .normal)
         startButton.setTitleColor(.white, for: .normal)
         signUpStackView.addArrangedSubview(startButton)
-    }
-}
-
-extension SignUpViewController {
-    fileprivate enum Text {
-        static let emailPlaceholder = "이메일 주소"
-        static let nicknamePlaceholder = "닉네임"
-        static let passwordPlaceholder = "비밀번호"
-        static let passwordCheckPlaceholder = "비밀번호 확인"
     }
 }
