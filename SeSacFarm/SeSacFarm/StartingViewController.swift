@@ -34,7 +34,6 @@ final class StartingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        // TODO: back button image 변경 트러블 슈팅 있었음 정리 필요
         navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.backward")
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.backward")
         navigationItem.backButtonTitle = ""
@@ -92,7 +91,7 @@ final class StartingViewController: UIViewController {
         }
     }
 
-    private func setStartButton() { // TODO: 버튼 눌렀을때 fade? 되는거 공부해보기
+    private func setStartButton() {
         startButton.backgroundColor = .systemGreen
         startButton.setTitle("시작하기", for: .normal)
         startButton.setTitleColor(.white, for: .normal)

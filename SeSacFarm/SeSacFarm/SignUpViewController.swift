@@ -7,8 +7,11 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
 final class SignUpViewController: UIViewController {
+    private let signUpViewModel = SignUpViewModel()
+    private var disposeBag = DisposeBag()
     private let signUpStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -25,16 +28,47 @@ final class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        bind()
         setNavigationBar()
         setSignUpStackView()
         setTextFields()
         setStartButton()
     }
 
+    private func bind() {
+        emailTextField.rx.text.orEmpty
+            .bind(to: signUpViewModel.emailText)
+            .disposed(by: disposeBag)
+        nicknameTextField.rx.text.orEmpty
+            .bind(to: signUpViewModel.nicknameText)
+            .disposed(by: disposeBag)
+        passwordTextField.rx.text.orEmpty
+            .bind(to: signUpViewModel.passwordText)
+            .disposed(by: disposeBag)
+        passwordCheckTextField.rx.text.orEmpty
+            .bind(to: signUpViewModel.passwordCheckText)
+            .disposed(by: disposeBag)
+
+        Observable
+            .combineLatest(signUpViewModel.isEmailValid,
+                           signUpViewModel.isNicknameValid,
+                           signUpViewModel.isPasswordValid,
+                           signUpViewModel.isPasswordCheckValid,
+                           signUpViewModel.isPasswordEqualToPasswordCheck) {
+                emailValid, nicknameValid, passwordValid, passwordCheckValid, passwordEqual -> Bool in
+                if emailValid && nicknameValid && passwordValid && passwordCheckValid && passwordEqual {
+                    self.startButton.backgroundColor = .systemGreen
+                    return true
+                } else {
+                    return false
+                }
+            }.bind(to: startButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+    }
+
     private func setNavigationBar() {
         navigationItem.title = "새싹농장 가입하기"
         navigationController?.navigationBar.tintColor = .black
-        // TODO: back button 바꾸면서 트러블 슈팅 있었음 정리 필요
     }
 
     private func setSignUpStackView() {
@@ -57,8 +91,8 @@ final class SignUpViewController: UIViewController {
         passwordCheckTextField.placeholder = Text.passwordCheckPlaceholder
     }
 
-    private func setStartButton() { // TODO: 버튼 눌렀을때 fade? 되는거 공부해보기
-        startButton.backgroundColor = .systemGreen
+    private func setStartButton() {
+        startButton.backgroundColor = .gray
         startButton.setTitle("시작하기", for: .normal)
         startButton.setTitleColor(.white, for: .normal)
         signUpStackView.addArrangedSubview(startButton)
