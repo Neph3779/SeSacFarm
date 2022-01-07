@@ -41,8 +41,16 @@ final class PostsViewController: UIViewController {
                 cellType: PostCollectionViewCell.self)
         ) { _, model, cell in
             cell.setValues(nickname: model.user.userName, description: model.text,
-                           date: model.createdDate, replyCount: model.comments.count)
+                           date: model.createdDate, replyCount: model.comments.count, comments: model.comments)
         }.disposed(by: disposeBag)
+
+        postCollectionView.rx.modelSelected(Post.self)
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { post in
+                self.navigationController?
+                    .pushViewController(PostDetailViewController(comments: post.comments), animated: true)
+            })
+            .disposed(by: disposeBag)
     }
 }
 

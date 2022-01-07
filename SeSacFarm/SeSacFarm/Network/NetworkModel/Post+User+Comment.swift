@@ -31,7 +31,9 @@ struct User: Codable {
 
 struct Comment: Codable {
     let userId: Int
+    let text: String
     enum CodingKeys: String, CodingKey {
         case userId = "user"
+        case text = "comment"
     }
 }

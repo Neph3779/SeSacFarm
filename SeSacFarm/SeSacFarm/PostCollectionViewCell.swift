@@ -15,6 +15,7 @@ final class PostCollectionViewCell: UICollectionViewCell {
     private let divisionLine = UIView(frame: .zero)
     private let replyImageView = UIImageView()
     private let replyLabel = UILabel()
+    private(set) var comments = [Comment]()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,11 +32,12 @@ final class PostCollectionViewCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
-    func setValues(nickname: String, description: String, date: String, replyCount: Int) {
+    func setValues(nickname: String, description: String, date: String, replyCount: Int, comments: [Comment]) {
         nicknameLabel.text = nickname
         descriptionLabel.text = description
         dateLabel.text = date
         replyLabel.text = replyCount.description
+        self.comments = comments
     }
 
     private func setNicknameLabel() {
