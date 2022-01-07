@@ -17,7 +17,13 @@ final class SignUpViewModel {
         static let passwordCheckPlaceholder = "비밀번호 확인"
     }
 
+    enum Mode {
+        case signUp
+        case login
+    }
+
     private let disposeBag = DisposeBag()
+    var mode: Mode = .signUp
     let startButtonTapped = PublishSubject<Void>()
     let emailText = BehaviorSubject<String>(value: "")
     let nicknameText = BehaviorSubject<String>(value: "")

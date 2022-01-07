@@ -81,7 +81,7 @@ final class StartingViewController: UIViewController {
         alreadyUserLabel.textColor = .lightGray
         loginButton.setTitle(Text.login, for: .normal)
         loginButton.setTitleColor(.systemGreen, for: .normal)
-        loginButton.addTarget(self, action: #selector(moveToSignUpView), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(moveToLoginView), for: .touchUpInside)
         view.addSubview(userLoginStackView)
         [alreadyUserLabel, loginButton].forEach {
             userLoginStackView.addArrangedSubview($0)
@@ -105,7 +105,11 @@ final class StartingViewController: UIViewController {
     }
 
     @objc private func moveToSignUpView() {
-        navigationController?.pushViewController(SignUpViewController(), animated: true)
+        navigationController?.pushViewController(SignUpViewController(mode: .signUp), animated: true)
+    }
+
+    @objc private func moveToLoginView() {
+        navigationController?.pushViewController(SignUpViewController(mode: .login), animated: true)
     }
 }
 
