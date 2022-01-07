@@ -137,7 +137,6 @@ final class SesacNetwork {
                 let result = try JSONDecoder().decode([Post].self, from: data)
                 completion(.success(result))
             } catch {
-                
                 completion(.failure(.jsonConvertingFailed))
             }
         }.resume()
