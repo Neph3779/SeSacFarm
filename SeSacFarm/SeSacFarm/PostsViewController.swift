@@ -41,7 +41,7 @@ final class PostsViewController: UIViewController {
                 cellType: PostCollectionViewCell.self)
         ) { _, model, cell in
             cell.setValues(nickname: model.user.userName, description: model.text,
-                           date: model.createdDate, replyCount: model.comments.count, comments: model.comments)
+                           date: model.createdDate, replyCount: model.comments.count)
         }.disposed(by: disposeBag)
 
         postCollectionView.rx.modelSelected(Post.self)

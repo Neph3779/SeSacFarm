@@ -24,6 +24,7 @@
 		32941E30278278B30084159C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32941E2E278278B30084159C /* LaunchScreen.storyboard */; };
 		32BF04552788005D0025546B /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BF04542788005D0025546B /* PostDetailViewController.swift */; };
 		32BF0457278800B60025546B /* PostDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BF0456278800B60025546B /* PostDetailViewModel.swift */; };
+		32BF0459278826890025546B /* PostDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BF0458278826890025546B /* PostDetailHeaderView.swift */; };
 		32DEF38427827AB4002D8CD9 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 32DEF38327827AB4002D8CD9 /* .swiftlint.yml */; };
 		32DEF38727827AEC002D8CD9 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 32DEF38627827AEC002D8CD9 /* SnapKit */; };
 		32DEF3892782BDE0002D8CD9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DEF3882782BDE0002D8CD9 /* SignUpViewController.swift */; };
@@ -48,6 +49,7 @@
 		32941E31278278B30084159C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32BF04542788005D0025546B /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		32BF0456278800B60025546B /* PostDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModel.swift; sourceTree = "<group>"; };
+		32BF0458278826890025546B /* PostDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailHeaderView.swift; sourceTree = "<group>"; };
 		32DEF38327827AB4002D8CD9 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		32DEF3882782BDE0002D8CD9 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		32EE25072786F33000FBD4E7 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				321D5DA22786912700476813 /* PostsViewController.swift */,
 				32BF0456278800B60025546B /* PostDetailViewModel.swift */,
 				32BF04542788005D0025546B /* PostDetailViewController.swift */,
+				32BF0458278826890025546B /* PostDetailHeaderView.swift */,
 				321D5D89278522E400476813 /* PostWriteViewController.swift */,
 				321D5D9D2785FAFB00476813 /* Network */,
 				321D5D9927859C0000476813 /* SupportingFiles */,
@@ -244,6 +247,7 @@
 			files = (
 				32941E28278278B10084159C /* StartingViewController.swift in Sources */,
 				32BF04552788005D0025546B /* PostDetailViewController.swift in Sources */,
+				32BF0459278826890025546B /* PostDetailHeaderView.swift in Sources */,
 				32EE25082786F33000FBD4E7 /* SignUpViewModel.swift in Sources */,
 				32941E24278278B10084159C /* AppDelegate.swift in Sources */,
 				321D5D8A278522E400476813 /* PostWriteViewController.swift in Sources */,
