@@ -12,15 +12,16 @@ import RxCocoa
 final class PostDetailViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private let tableView = UITableView()
-    private var postDetailViewModel: PostDetailViewModel
+    private var postDetailViewModel = PostDetailViewModel(post: Post(id: 0, text: "",
+                                                                     user: User(id: 0, userName: ""),
+                                                                     comments: [], createdDate: ""))
 
-    init(comments: [Comment]) {
-        self.postDetailViewModel = PostDetailViewModel(postComments: comments)
+    init(post: Post) {
         super.init(nibName: nil, bundle: nil)
+        self.postDetailViewModel = PostDetailViewModel(post: post)
     }
 
     required init?(coder: NSCoder) {
-        self.postDetailViewModel = PostDetailViewModel(postComments: [])
         super.init(coder: coder)
     }
 
@@ -40,14 +41,19 @@ final class PostDetailViewController: UIViewController {
     }
 
     private func bindTableView() {
-        postDetailViewModel.comments.bind(to: tableView.rx.items(
-            cellIdentifier: "tableViewCell",
-            cellType: UITableViewCell.self)
-        ) { _, model, cell in
-            var content = cell.defaultContentConfiguration()
-            content.text = model.text
-            cell.contentConfiguration = content
-        }.disposed(by: disposeBag)
+        postDetailViewModel.post
+            .map { post -> [Comment] in
+                post.comments
+            }
+            .bind(to: tableView.rx.items(
+                cellIdentifier: "tableViewCell",
+                cellType: UITableViewCell.self)
+            ) { _, model, cell in
+                var content = cell.defaultContentConfiguration()
+                content.text = model.text
+                cell.contentConfiguration = content
+            }
+            .disposed(by: disposeBag)
     }
 }
 

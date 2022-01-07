@@ -10,9 +10,11 @@ import RxSwift
 import RxCocoa
 
 final class PostDetailViewModel {
-    var comments = BehaviorSubject<[Comment]>(value: [])
+    var post = BehaviorSubject<Post>(value: Post(id: 0, text: "",
+                                                 user: User(id: 0, userName: ""),
+                                                 comments: [], createdDate: ""))
 
-    init(postComments: [Comment]) {
-        self.comments.onNext(postComments)
+    init(post: Post) {
+        self.post.onNext(post)
     }
 }

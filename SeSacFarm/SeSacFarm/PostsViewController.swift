@@ -48,7 +48,7 @@ final class PostsViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { post in
                 self.navigationController?
-                    .pushViewController(PostDetailViewController(comments: post.comments), animated: true)
+                    .pushViewController(PostDetailViewController(post: post), animated: true)
             })
             .disposed(by: disposeBag)
     }
