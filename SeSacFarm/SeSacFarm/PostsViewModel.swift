@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-final class PostTableViewModel {
+final class PostsViewModel {
     var posts = PublishSubject<[Post]>()
 
     init() {

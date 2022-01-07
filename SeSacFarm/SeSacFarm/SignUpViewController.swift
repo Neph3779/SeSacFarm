@@ -70,7 +70,7 @@ final class SignUpViewController: UIViewController {
             .subscribe(onNext: {
                 SesacNetwork.shared.login(identifier: self.emailTextField.text!, password: self.passwordTextField.text!) { _ in
                     DispatchQueue.main.async {
-                        self.navigationController?.pushViewController(PostTableViewController(), animated: true)
+                        self.navigationController?.pushViewController(PostsViewController(), animated: true)
                     }
                 }
             })

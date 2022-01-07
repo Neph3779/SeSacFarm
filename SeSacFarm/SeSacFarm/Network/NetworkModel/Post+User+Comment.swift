@@ -10,11 +10,12 @@ import Foundation
 struct Post: Codable {
     let id: Int
     let text: String
+    let user: User
     let comments: [Comment]
     let createdDate: String
 
     enum CodingKeys: String, CodingKey {
-        case id, text, comments
+        case id, text, user, comments
         case createdDate = "created_at"
     }
 }

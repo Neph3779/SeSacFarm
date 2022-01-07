@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class PostTableViewCell: UITableViewCell {
-    static let reuseIdentifier = "postTableViewCell"
+final class PostCollectionViewCell: UICollectionViewCell {
+    static let reuseIdentifier = "postCollectionViewCell"
     private let nicknameLabel = UILabel()
     private let descriptionLabel = UILabel()
     private let dateLabel = UILabel()
@@ -16,8 +16,9 @@ final class PostTableViewCell: UITableViewCell {
     private let replyImageView = UIImageView()
     private let replyLabel = UILabel()
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        contentView.backgroundColor = .systemBackground
         setNicknameLabel()
         setDescriptionLabel()
         setDateLabel()
@@ -30,14 +31,9 @@ final class PostTableViewCell: UITableViewCell {
         super.init(coder: coder)
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-
     func setValues(nickname: String, description: String, date: String, replyCount: Int) {
         nicknameLabel.text = nickname
         descriptionLabel.text = description
-        print(description)
         dateLabel.text = date
         replyLabel.text = replyCount.description
     }
@@ -45,7 +41,7 @@ final class PostTableViewCell: UITableViewCell {
     private func setNicknameLabel() {
         nicknameLabel.backgroundColor = .systemGray6
         nicknameLabel.textColor = .gray
-        nicknameLabel.layer.cornerRadius = 10
+        nicknameLabel.layer.cornerRadius = 3
         nicknameLabel.clipsToBounds = true
         contentView.addSubview(nicknameLabel)
         nicknameLabel.snp.makeConstraints { label in
@@ -55,6 +51,7 @@ final class PostTableViewCell: UITableViewCell {
 
     private func setDescriptionLabel() {
         descriptionLabel.numberOfLines = 0
+        descriptionLabel.setContentHuggingPriority(.init(1), for: .vertical)
         contentView.addSubview(descriptionLabel)
         descriptionLabel.snp.makeConstraints { label in
             label.leading.trailing.equalTo(contentView).inset(10)
@@ -74,9 +71,9 @@ final class PostTableViewCell: UITableViewCell {
         divisionLine.backgroundColor = .systemGray6
         contentView.addSubview(divisionLine)
         divisionLine.snp.makeConstraints { line in
-            line.leading.trailing.equalTo(contentView)
+            line.width.equalTo(contentView.snp.width).inset(-20)
             line.top.equalTo(dateLabel.snp.bottom).offset(10)
-            line.height.equalTo(1)
+            line.height.equalTo(3)
         }
     }
 

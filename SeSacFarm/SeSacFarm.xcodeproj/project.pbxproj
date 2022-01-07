@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		321D5D842783C79400476813 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D5D832783C79400476813 /* PostTableViewCell.swift */; };
+		321D5D842783C79400476813 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D5D832783C79400476813 /* PostCollectionViewCell.swift */; };
 		321D5D8A278522E400476813 /* PostWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D5D89278522E400476813 /* PostWriteViewController.swift */; };
 		321D5D8D27858A1C00476813 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 321D5D8C27858A1C00476813 /* RxCocoa */; };
 		321D5D8F27858A1C00476813 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 321D5D8E27858A1C00476813 /* RxSwift */; };
@@ -15,8 +15,8 @@
 		321D5D9B2785A2E800476813 /* Post+User+Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D5D9A2785A2E800476813 /* Post+User+Comment.swift */; };
 		321D5D9F2785FC3000476813 /* SesacNetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D5D9E2785FC3000476813 /* SesacNetworkError.swift */; };
 		321D5DA12786024300476813 /* RegisterLoginResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D5DA02786024300476813 /* RegisterLoginResult.swift */; };
-		321D5DA32786912700476813 /* PostTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D5DA22786912700476813 /* PostTableViewController.swift */; };
-		321D5DA5278691C600476813 /* PostTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D5DA4278691C600476813 /* PostTableViewModel.swift */; };
+		321D5DA32786912700476813 /* PostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D5DA22786912700476813 /* PostsViewController.swift */; };
+		321D5DA5278691C600476813 /* PostsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D5DA4278691C600476813 /* PostsViewModel.swift */; };
 		32941E24278278B10084159C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32941E23278278B10084159C /* AppDelegate.swift */; };
 		32941E26278278B10084159C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32941E25278278B10084159C /* SceneDelegate.swift */; };
 		32941E28278278B10084159C /* StartingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32941E27278278B10084159C /* StartingViewController.swift */; };
@@ -29,14 +29,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		321D5D832783C79400476813 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		321D5D832783C79400476813 /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
 		321D5D89278522E400476813 /* PostWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostWriteViewController.swift; sourceTree = "<group>"; };
 		321D5D9627858E8500476813 /* SesacNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SesacNetwork.swift; sourceTree = "<group>"; };
 		321D5D9A2785A2E800476813 /* Post+User+Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Post+User+Comment.swift"; sourceTree = "<group>"; };
 		321D5D9E2785FC3000476813 /* SesacNetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SesacNetworkError.swift; sourceTree = "<group>"; };
 		321D5DA02786024300476813 /* RegisterLoginResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterLoginResult.swift; sourceTree = "<group>"; };
-		321D5DA22786912700476813 /* PostTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewController.swift; sourceTree = "<group>"; };
-		321D5DA4278691C600476813 /* PostTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewModel.swift; sourceTree = "<group>"; };
+		321D5DA22786912700476813 /* PostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsViewController.swift; sourceTree = "<group>"; };
+		321D5DA4278691C600476813 /* PostsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsViewModel.swift; sourceTree = "<group>"; };
 		32941E20278278B10084159C /* SeSacFarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeSacFarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32941E23278278B10084159C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		32941E25278278B10084159C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,9 +125,9 @@
 				32941E27278278B10084159C /* StartingViewController.swift */,
 				32EE25072786F33000FBD4E7 /* SignUpViewModel.swift */,
 				32DEF3882782BDE0002D8CD9 /* SignUpViewController.swift */,
-				321D5D832783C79400476813 /* PostTableViewCell.swift */,
-				321D5DA4278691C600476813 /* PostTableViewModel.swift */,
-				321D5DA22786912700476813 /* PostTableViewController.swift */,
+				321D5D832783C79400476813 /* PostCollectionViewCell.swift */,
+				321D5DA4278691C600476813 /* PostsViewModel.swift */,
+				321D5DA22786912700476813 /* PostsViewController.swift */,
 				321D5D89278522E400476813 /* PostWriteViewController.swift */,
 				321D5D9D2785FAFB00476813 /* Network */,
 				321D5D9927859C0000476813 /* SupportingFiles */,
@@ -241,12 +241,12 @@
 				32941E24278278B10084159C /* AppDelegate.swift in Sources */,
 				321D5D8A278522E400476813 /* PostWriteViewController.swift in Sources */,
 				321D5D9B2785A2E800476813 /* Post+User+Comment.swift in Sources */,
-				321D5D842783C79400476813 /* PostTableViewCell.swift in Sources */,
-				321D5DA5278691C600476813 /* PostTableViewModel.swift in Sources */,
+				321D5D842783C79400476813 /* PostCollectionViewCell.swift in Sources */,
+				321D5DA5278691C600476813 /* PostsViewModel.swift in Sources */,
 				32DEF3892782BDE0002D8CD9 /* SignUpViewController.swift in Sources */,
 				321D5D9727858E8500476813 /* SesacNetwork.swift in Sources */,
 				32941E26278278B10084159C /* SceneDelegate.swift in Sources */,
-				321D5DA32786912700476813 /* PostTableViewController.swift in Sources */,
+				321D5DA32786912700476813 /* PostsViewController.swift in Sources */,
 				321D5D9F2785FC3000476813 /* SesacNetworkError.swift in Sources */,
 				321D5DA12786024300476813 /* RegisterLoginResult.swift in Sources */,
 			);
