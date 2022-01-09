@@ -45,7 +45,7 @@ final class PostCollectionViewCell: UICollectionViewCell {
     func setValues(nickname: String, description: String, date: String, replyCount: Int) {
         nicknameLabel.text = nickname
         descriptionLabel.text = description
-        dateLabel.text = date
+        dateLabel.text = date.convertToDate()
         replyLabel.text = replyCount == 0 ? "댓글쓰기" : "댓글 " + replyCount.description
     }
 
@@ -71,6 +71,7 @@ final class PostCollectionViewCell: UICollectionViewCell {
     }
 
     private func setDateLabel() {
+        dateLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         contentView.addSubview(dateLabel)
         dateLabel.snp.makeConstraints { label in
             label.leading.equalTo(contentView).inset(10)
@@ -84,7 +85,7 @@ final class PostCollectionViewCell: UICollectionViewCell {
         divisionLine.snp.makeConstraints { line in
             line.width.equalTo(contentView.snp.width).inset(-20)
             line.top.equalTo(dateLabel.snp.bottom).offset(10)
-            line.height.equalTo(3)
+            line.height.equalTo(2)
         }
     }
 

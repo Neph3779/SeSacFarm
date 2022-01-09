@@ -16,9 +16,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.rootViewController = UINavigationController(rootViewController: StartingViewController())
         window.makeKeyAndVisible()
         self.window = window
-
-        UINavigationBar.appearance().backIndicatorImage = UIImage(systemName: "arrow.backward")
-        UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.backward")
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

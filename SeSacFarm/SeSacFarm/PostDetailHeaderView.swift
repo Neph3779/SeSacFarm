@@ -32,7 +32,7 @@ final class PostDetailHeaderView: UITableViewHeaderFooterView {
 
     func setValues(userName: String, date: String, description: String, replyCount: Int) {
         userNameLabel.text = userName
-        dateLabel.text = date
+        dateLabel.text = date.convertToDate()
         descriptionLabel.text = description
         replyLabel.text = replyCount.description
     }
@@ -54,6 +54,7 @@ final class PostDetailHeaderView: UITableViewHeaderFooterView {
     }
 
     private func setDateLabel() {
+        dateLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         contentView.addSubview(dateLabel)
         dateLabel.snp.makeConstraints { label in
             label.leading.equalTo(profileImageView.snp.trailing).offset(10)
