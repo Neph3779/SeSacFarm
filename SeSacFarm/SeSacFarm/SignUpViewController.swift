@@ -58,56 +58,39 @@ final class SignUpViewController: UIViewController {
             .bind(to: signUpViewModel.passwordCheckText)
             .disposed(by: disposeBag)
 
-        Observable
-            .combineLatest(signUpViewModel.isEmailValid,
-                           signUpViewModel.isNicknameValid,
-                           signUpViewModel.isPasswordValid,
-                           signUpViewModel.isPasswordCheckValid,
-                           signUpViewModel.isPasswordEqualToPasswordCheck) {
-                emailValid, nicknameValid, passwordValid, passwordCheckValid, passwordEqual -> Bool in
-                var valid = false
-                if self.signUpViewModel.mode == .signUp {
-                    valid = emailValid && nicknameValid &&
-                    passwordValid && passwordCheckValid && passwordEqual ? true : false
-                } else if self.signUpViewModel.mode == .login {
-                    valid = emailValid && passwordValid ? true : false
-                }
-
-                if valid {
-                    self.startButton.backgroundColor = .systemGreen
-                    return true
-                } else {
-                    self.startButton.backgroundColor = .gray
-                    return false
-                }
-            }.bind(to: startButton.rx.isEnabled)
+        signUpViewModel.isValid
+            .subscribe(
+                onNext: { valid in
+                    self.startButton.isEnabled = valid ? true : false
+                    self.startButton.backgroundColor = valid ? .systemGreen : .gray
+                })
             .disposed(by: disposeBag)
 
-        startButton.rx.tap // TODO: 이 끔찍한 코드들 해결 필요
-            .subscribe(onNext: {
-                if self.signUpViewModel.mode == .signUp {
-                    SesacNetwork.shared.register(userName: self.nicknameTextField.text!,
-                                                 email: self.emailTextField.text!,
-                                                 password: self.passwordTextField.text!) { _ in
-                        DispatchQueue.main.async {
-                            self.navigationController?.pushViewController(PostsViewController(), animated: true)
+        startButton.rx.tap
+            .subscribe(
+                onNext: {
+                    if self.signUpViewModel.mode == .signUp {
+                        SesacNetwork.shared.register(userName: self.nicknameTextField.text!,
+                                                     email: self.emailTextField.text!,
+                                                     password: self.passwordTextField.text!) { _ in
+                            DispatchQueue.main.async {
+                                self.navigationController?.pushViewController(PostsViewController(), animated: true)
+                            }
+                        }
+                    } else if self.signUpViewModel.mode == .login {
+                        SesacNetwork.shared.login(identifier: self.emailTextField.text!,
+                                                  password: self.passwordTextField.text!) { _ in
+                            DispatchQueue.main.async {
+                                self.navigationController?.pushViewController(PostsViewController(), animated: true)
+                            }
                         }
                     }
-                } else if self.signUpViewModel.mode == .login {
-                    SesacNetwork.shared.login(identifier: self.emailTextField.text!,
-                                              password: self.passwordTextField.text!) { _ in
-                        DispatchQueue.main.async {
-                            self.navigationController?.pushViewController(PostsViewController(), animated: true)
-                        }
-                    }
-                }
-            })
+                })
             .disposed(by: disposeBag)
     }
 
     private func setNavigationBar() {
-        let navigationTitle = signUpViewModel.mode == .signUp ? "새싹농장 가입하기" : "새싹농장 로그인"
-        navigationItem.title = navigationTitle
+        navigationItem.title = signUpViewModel.mode.navigationTitle
         navigationController?.navigationBar.tintColor = .black
     }
 
@@ -136,18 +119,14 @@ final class SignUpViewController: UIViewController {
         nicknameTextField.placeholder = SignUpViewModel.Text.nicknamePlaceholder
         passwordTextField.placeholder = SignUpViewModel.Text.passwordPlaceholder
         passwordCheckTextField.placeholder = SignUpViewModel.Text.passwordCheckPlaceholder
-//        emailTextField.textContentType = .emailAddress
-//        nicknameTextField.textContentType = .name
         [passwordTextField, passwordCheckTextField].forEach {
             $0.isSecureTextEntry = true
-//            $0.textContentType = .password 공부해볼 키워드들
         }
     }
 
     private func setStartButton() {
-        let buttonTitle = signUpViewModel.mode == .signUp ? "시작하기" : "로그인"
+        startButton.setTitle(signUpViewModel.mode.buttonTitle, for: .normal)
         startButton.backgroundColor = .gray
-        startButton.setTitle(buttonTitle, for: .normal)
         startButton.setTitleColor(.white, for: .normal)
         signUpStackView.addArrangedSubview(startButton)
     }

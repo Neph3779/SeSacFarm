@@ -20,6 +20,24 @@ final class SignUpViewModel {
     enum Mode {
         case signUp
         case login
+
+        var navigationTitle: String {
+            switch self {
+            case .signUp:
+                return "새싹농장 가입하기"
+            case .login:
+                return "새싹농장 로그인"
+            }
+        }
+
+        var buttonTitle: String {
+            switch self {
+            case .signUp:
+                return "시작하기"
+            case .login:
+                return "로그인"
+            }
+        }
     }
 
     private let disposeBag = DisposeBag()
@@ -30,6 +48,7 @@ final class SignUpViewModel {
     let passwordText = BehaviorSubject<String>(value: "")
     let passwordCheckText = BehaviorSubject<String>(value: "")
 
+    let isValid = BehaviorSubject<Bool>(value: false)
     let isEmailValid = BehaviorSubject<Bool>(value: false)
     let isNicknameValid = BehaviorSubject<Bool>(value: false)
     let isPasswordValid = BehaviorSubject<Bool>(value: false)
@@ -49,6 +68,7 @@ final class SignUpViewModel {
         _ = startButtonTapped.subscribe(onNext: { _ in
             print("tapped")
         })
+        bindIsValid()
     }
 
     private func checkEmailValid(email: String) -> Bool {
@@ -72,5 +92,23 @@ final class SignUpViewModel {
             $0 == $1
         }.bind(to: isPasswordEqualToPasswordCheck)
             .disposed(by: disposeBag)
+    }
+
+    private func bindIsValid() {
+        Observable.combineLatest(
+            self.isEmailValid,
+            self.isNicknameValid,
+            self.isPasswordValid,
+            self.isPasswordCheckValid,
+            self.isPasswordEqualToPasswordCheck) { email, nickname, password, passwordCheck, passwardEqual -> Bool in
+                if self.mode == .signUp {
+                    return email && nickname && password && passwordCheck && passwardEqual
+                } else {
+                    return email && password
+                }
+            }
+            .bind(to: self.isValid)
+            .disposed(by: self.disposeBag)
+
     }
 }
