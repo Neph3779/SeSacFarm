@@ -110,7 +110,7 @@ final class SesacNetwork {
             return completion(.failure(.tokenExpired))
         }
 
-        let request = makeRequest(method: "GET", url: url, token: token)
+        let request = makeGETRequest(url: url, token: token)
 
         session.dataTask(with: request) { data, response, error in
             guard error == nil, let httpResponse = response as? HTTPURLResponse else {
@@ -145,7 +145,7 @@ final class SesacNetwork {
             return completion(.failure(.tokenExpired))
         }
 
-        let request = makeRequest(method: "GET", url: url, token: token)
+        let request = makeGETRequest(url: url, token: token)
 
         session.dataTask(with: request) { data, response, error in
             guard error == nil, let httpResponse = response as? HTTPURLResponse else {
@@ -210,7 +210,7 @@ private extension SesacNetwork {
         return urlComponents
     }
 
-    func makeRequest(method: String, url: URL, token: String) -> URLRequest {
+    func makeGETRequest(url: URL, token: String) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")

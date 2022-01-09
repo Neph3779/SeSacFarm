@@ -41,7 +41,7 @@ final class PostsViewController: UIViewController {
         guard let layout = postCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
             return
         }
-        layout.estimatedItemSize = CGSize(width: postCollectionView.frame.width, height: 200)
+        layout.estimatedItemSize = CGSize(width: postCollectionView.frame.width, height: 10)
     }
 
     private func bindTableView() {
@@ -66,7 +66,7 @@ final class PostsViewController: UIViewController {
 
 extension PostsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: postCollectionView.frame.width, height: 200)
+        return CGSize(width: postCollectionView.frame.width, height: 10)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

@@ -46,7 +46,7 @@ final class PostCollectionViewCell: UICollectionViewCell {
         nicknameLabel.text = nickname
         descriptionLabel.text = description
         dateLabel.text = date
-        replyLabel.text = replyCount.description
+        replyLabel.text = replyCount == 0 ? "댓글쓰기" : "댓글 " + replyCount.description
     }
 
     private func setNicknameLabel() {
@@ -100,6 +100,7 @@ final class PostCollectionViewCell: UICollectionViewCell {
 
     private func setReplyLabel() {
         replyLabel.text = "댓글쓰기"
+        replyLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         contentView.addSubview(replyLabel)
         replyLabel.snp.makeConstraints { label in
             label.leading.equalTo(replyImageView.snp.trailing).offset(10)
