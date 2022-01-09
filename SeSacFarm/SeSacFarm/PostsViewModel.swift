@@ -18,7 +18,7 @@ final class PostsViewModel {
             case .success(let resultPosts):
                 self.posts.onNext(resultPosts)
             case .failure(let error):
-                print(error)
+                print(error) // TODO: 에러 처리
             }
         }
     }
