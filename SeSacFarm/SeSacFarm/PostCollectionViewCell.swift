@@ -31,6 +31,17 @@ final class PostCollectionViewCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
+    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+        setNeedsLayout()
+        layoutIfNeeded()
+        let size = contentView.systemLayoutSizeFitting(layoutAttributes.size)
+        var frame = layoutAttributes.frame
+        frame.size.height = ceil(size.height)
+        layoutAttributes.frame = frame
+
+        return layoutAttributes
+    }
+
     func setValues(nickname: String, description: String, date: String, replyCount: Int) {
         nicknameLabel.text = nickname
         descriptionLabel.text = description
@@ -50,7 +61,7 @@ final class PostCollectionViewCell: UICollectionViewCell {
     }
 
     private func setDescriptionLabel() {
-        descriptionLabel.numberOfLines = 0
+        descriptionLabel.numberOfLines = 3
         descriptionLabel.setContentHuggingPriority(.init(1), for: .vertical)
         contentView.addSubview(descriptionLabel)
         descriptionLabel.snp.makeConstraints { label in

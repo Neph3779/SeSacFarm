@@ -16,10 +16,15 @@ final class PostsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        navigationItem.setHidesBackButton(true, animated: true)
-        navigationItem.title = "새싹농장"
+        setNavigationItems()
         setCollectionView()
         bindTableView()
+    }
+
+    private func setNavigationItems() {
+        navigationItem.setHidesBackButton(true, animated: true)
+        navigationItem.title = "새싹농장"
+        navigationItem.backButtonTitle = ""
     }
 
     private func setCollectionView() {
@@ -32,6 +37,11 @@ final class PostsViewController: UIViewController {
             collectionView.leading.trailing.bottom.equalToSuperview()
             collectionView.top.equalTo(view.safeAreaLayoutGuide)
         }
+
+        guard let layout = postCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+            return
+        }
+        layout.estimatedItemSize = CGSize(width: postCollectionView.frame.width, height: 200)
     }
 
     private func bindTableView() {
@@ -56,7 +66,7 @@ final class PostsViewController: UIViewController {
 
 extension PostsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: postCollectionView.frame.width, height: 150)
+        return CGSize(width: postCollectionView.frame.width, height: 200)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
