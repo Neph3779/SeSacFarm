@@ -207,8 +207,35 @@ final class SesacNetwork {
         }.resume()
     }
 
+    func uploadPost(text: String, completion: @escaping (Result<Void, SesacNetworkError>) -> Void) {
+        guard let url = makeUploadPostURLComponents().url else {
+            return completion(.failure(.urlConvertFailed))
+        }
+        guard let token = token else {
+            return completion(.failure(.tokenExpired))
+        }
+        var request = makeRequest(method: "POST", url: url, token: token)
+        request.httpBody = "text=\(text)"
+            .data(using: .utf8, allowLossyConversion: false)
+
+        session.dataTask(with: request) { _, response, error in
+            guard error == nil, let httpResponse = response as? HTTPURLResponse else {
+                return completion(.failure(.unknownError))
+            }
+
+            guard (200...299).contains(httpResponse.statusCode) else {
+                if httpResponse.statusCode == 401 {
+                    return completion(.failure(.tokenExpired))
+                }
+                return completion(.failure(.invalidResponse(statusCode: httpResponse.statusCode)))
+            }
+
+            completion(.success(()))
+        }.resume()
+    }
+
     func uploadComment(postId: Int, comment: String, completion: @escaping (Result<Void, SesacNetworkError>) -> Void) {
-        guard let url = makeGetCommentsURLCompoenents(postId: postId).url else {
+        guard let url = makeUploadCommentURLComponents().url else {
             return completion(.failure(.urlConvertFailed))
         }
         guard let token = token else {
@@ -269,6 +296,18 @@ private extension SesacNetwork {
         var urlComponents = defaultComponent
         urlComponents.path = "/comments"
         urlComponents.queryItems = [URLQueryItem(name: "post", value: postId.description)]
+        return urlComponents
+    }
+
+    func makeUploadPostURLComponents() -> URLComponents {
+        var urlComponents = defaultComponent
+        urlComponents.path = "/posts"
+        return urlComponents
+    }
+
+    func makeUploadCommentURLComponents() -> URLComponents {
+        var urlComponents = defaultComponent
+        urlComponents.path = "/comments"
         return urlComponents
     }
 

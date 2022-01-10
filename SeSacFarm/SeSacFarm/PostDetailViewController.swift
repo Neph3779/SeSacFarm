@@ -33,16 +33,10 @@ final class PostDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTap))
-        view.addGestureRecognizer(tapGestureRecognizer)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)),
-                                               name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)),
-                                               name: UIResponder.keyboardWillHideNotification, object: nil)
-
         setTableView()
         setReplyView()
-        bindTableView()
+        setNotifications()
+        bind()
     }
 
     private func setTableView() {
@@ -87,7 +81,16 @@ final class PostDetailViewController: UIViewController {
         }
     }
 
-    private func bindTableView() {
+    private func setNotifications() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTap))
+        view.addGestureRecognizer(tapGestureRecognizer)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    private func bind() {
         postDetailViewModel.comments
             .observe(on: MainScheduler.instance)
             .bind(to: tableView.rx.items(
@@ -116,7 +119,7 @@ final class PostDetailViewController: UIViewController {
             let keyboardHeight = keyboardRectangle.height
             let bottomSafeAreaHeight = view.frame.height
             - (view.safeAreaLayoutGuide.layoutFrame.origin.y
-            + view.safeAreaLayoutGuide.layoutFrame.height)
+               + view.safeAreaLayoutGuide.layoutFrame.height)
 
             replyView.snp.remakeConstraints { replyView in
                 replyView.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -146,9 +149,9 @@ extension PostDetailViewController: UITableViewDelegate {
         postDetailViewModel.post
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { post in
-            headerView.setValues(userName: post.user.userName, date: post.createdDate,
-                                 description: post.text, replyCount: post.comments.count)
-        }).disposed(by: disposeBag)
+                headerView.setValues(userName: post.user.userName, date: post.createdDate,
+                                     description: post.text, replyCount: post.comments.count)
+            }).disposed(by: disposeBag)
 
         return headerView
     }
@@ -158,9 +161,7 @@ extension PostDetailViewController: UITableViewDelegate {
     }
 }
 
-// TODO: 댓글 서버에 올리고 view refresh 해주기
-// TODO: 로그인 실패시 뷰 전환 안하고 토스트만 띄워주기
+// TODO: 수정 버튼 만들기
+// TODO: 내가 작성한 포스트 아닌 경우에는 수정 버튼 안띄워주기
+
 // TODO: 이것저것 시도하다 token 만료된 경우 navigation의 rootView로 보내기 + 토스트 띄우기 (로그인 시작화면)
-// TODO: 유저 id 보관하기, 수정 시도시 내가 안쓴건 수정 메뉴 안띄우기
-// TODO: 글 작성해서 서버에 올리고 refresh 해주기
-// TODO: 페이지네이션 구현하기
