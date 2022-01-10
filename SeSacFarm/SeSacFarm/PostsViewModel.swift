@@ -13,6 +13,10 @@ final class PostsViewModel {
     var posts = PublishSubject<[Post]>()
 
     init() {
+        reloadPosts()
+    }
+
+    func reloadPosts() {
         SesacNetwork.shared.getPosts { result in
             switch result {
             case .success(let resultPosts):

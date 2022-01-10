@@ -103,14 +103,14 @@ final class SesacNetwork {
     }
 
     func getPosts(completion: @escaping (Result<[Post], SesacNetworkError>) -> Void) {
-        guard let url = makePostURLComponents().url else {
+        guard let url = makeGetPostURLComponents().url else {
             return completion(.failure(.urlConvertFailed))
         }
         guard let token = token else {
             return completion(.failure(.tokenExpired))
         }
 
-        let request = makeGETRequest(url: url, token: token)
+        let request = makeRequest(method: "GET", url: url, token: token)
 
         session.dataTask(with: request) { data, response, error in
             guard error == nil, let httpResponse = response as? HTTPURLResponse else {
@@ -137,15 +137,50 @@ final class SesacNetwork {
         }.resume()
     }
 
-    func getCommentsFromPost(postId: Int, completion: @escaping (Result<[DetailComment], SesacNetworkError>) -> Void) {
-        guard let url = makeCommentsURLCompoenents(postId: postId).url else {
+    func getPost(postId: Int, completion: @escaping (Result<Post, SesacNetworkError>) -> Void) {
+        guard let url = makeGetPostURLComponents(postId: postId).url else {
             return completion(.failure(.urlConvertFailed))
         }
         guard let token = token else {
             return completion(.failure(.tokenExpired))
         }
 
-        let request = makeGETRequest(url: url, token: token)
+        let request = makeRequest(method: "GET", url: url, token: token)
+
+        session.dataTask(with: request) { data, response, error in
+            guard error == nil, let httpResponse = response as? HTTPURLResponse else {
+                return completion(.failure(.unknownError))
+            }
+
+            guard (200...299).contains(httpResponse.statusCode) else {
+                if httpResponse.statusCode == 401 {
+                    return completion(.failure(.tokenExpired))
+                }
+                return completion(.failure(.invalidResponse(statusCode: httpResponse.statusCode)))
+            }
+
+            guard let data = data else {
+                return completion(.failure(.noAccess))
+            }
+
+            do {
+                let result = try JSONDecoder().decode(Post.self, from: data)
+                completion(.success(result))
+            } catch {
+                completion(.failure(.jsonConvertingFailed))
+            }
+        }.resume()
+    }
+
+    func getCommentsFromPost(postId: Int, completion: @escaping (Result<[DetailComment], SesacNetworkError>) -> Void) {
+        guard let url = makeGetCommentsURLCompoenents(postId: postId).url else {
+            return completion(.failure(.urlConvertFailed))
+        }
+        guard let token = token else {
+            return completion(.failure(.tokenExpired))
+        }
+
+        let request = makeRequest(method: "GET", url: url, token: token)
 
         session.dataTask(with: request) { data, response, error in
             guard error == nil, let httpResponse = response as? HTTPURLResponse else {
@@ -171,6 +206,34 @@ final class SesacNetwork {
             }
         }.resume()
     }
+
+    func uploadComment(postId: Int, comment: String, completion: @escaping (Result<Void, SesacNetworkError>) -> Void) {
+        guard let url = makeGetCommentsURLCompoenents(postId: postId).url else {
+            return completion(.failure(.urlConvertFailed))
+        }
+        guard let token = token else {
+            return completion(.failure(.tokenExpired))
+        }
+
+        var request = makeRequest(method: "POST", url: url, token: token)
+        request.httpBody = "comment=\(comment)&post=\(postId.description)"
+            .data(using: .utf8, allowLossyConversion: false)
+
+        session.dataTask(with: request) { _, response, error in
+            guard error == nil, let httpResponse = response as? HTTPURLResponse else {
+                return completion(.failure(.unknownError))
+            }
+
+            guard (200...299).contains(httpResponse.statusCode) else {
+                if httpResponse.statusCode == 401 {
+                    return completion(.failure(.tokenExpired))
+                }
+                return completion(.failure(.invalidResponse(statusCode: httpResponse.statusCode)))
+            }
+
+            completion(.success(()))
+        }.resume()
+    }
 }
 
 private extension SesacNetwork {
@@ -191,29 +254,27 @@ private extension SesacNetwork {
         return urlComponents
     }
 
-    func makePasswordChangeURLComponents() -> URLComponents {
+    func makeGetPostURLComponents(postId: Int? = nil) -> URLComponents {
         var urlComponents = defaultComponent
-        urlComponents.path = "/custom/change-password"
+        if let postId = postId {
+            urlComponents.path = "/posts/\(postId)"
+        } else {
+            urlComponents.path = "/posts"
+            urlComponents.queryItems = [URLQueryItem(name: "_sort", value: "created_at:desc")]
+        }
         return urlComponents
     }
 
-    func makePostURLComponents() -> URLComponents {
-        var urlComponents = defaultComponent
-        urlComponents.path = "/posts"
-        urlComponents.queryItems = [URLQueryItem(name: "_sort", value: "created_at:desc")]
-        return urlComponents
-    }
-
-    func makeCommentsURLCompoenents(postId: Int) -> URLComponents {
+    func makeGetCommentsURLCompoenents(postId: Int) -> URLComponents {
         var urlComponents = defaultComponent
         urlComponents.path = "/comments"
         urlComponents.queryItems = [URLQueryItem(name: "post", value: postId.description)]
         return urlComponents
     }
 
-    func makeGETRequest(url: URL, token: String) -> URLRequest {
+    func makeRequest(method: String, url: URL, token: String) -> URLRequest {
         var request = URLRequest(url: url)
-        request.httpMethod = "GET"
+        request.httpMethod = method
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         return request

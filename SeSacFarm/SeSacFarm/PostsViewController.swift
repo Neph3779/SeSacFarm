@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 
 final class PostsViewController: UIViewController {
-    private let postsViewModel = PostsViewModel()
+    private var postsViewModel = PostsViewModel()
     private var disposeBag = DisposeBag()
     private let postCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     private let postAddButton = UIButton()
@@ -21,6 +21,11 @@ final class PostsViewController: UIViewController {
         setCollectionView()
         setPostAddButton()
         bind()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        postsViewModel.reloadPosts()
     }
 
     private func setNavigationItems() {
