@@ -10,16 +10,17 @@ import RxSwift
 import RxCocoa
 
 final class PostWriteViewModel {
-    let post: Post? = nil
+    let post: Post?
     let text = BehaviorSubject<String>(value: "")
     let finishButtonTapped = PublishSubject<Void>()
     let disposeBag = DisposeBag()
 
     init(post: Post? = nil) {
         if let post = post {
+            self.post = post
             text.onNext(post.text)
         } else {
-
+            self.post = nil
         }
     }
 }

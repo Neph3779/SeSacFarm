@@ -33,10 +33,24 @@ final class PostDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        setNavigationBar()
         setTableView()
         setReplyView()
         setNotifications()
         bind()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        postDetailViewModel.reloadPost()
+        postDetailViewModel.reloadComments()
+    }
+
+    private func setNavigationBar() {
+        if postDetailViewModel.checkMyPost == true {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis"),
+                                                                style: .plain, target: self, action: #selector(editButtonTapped))
+        }
     }
 
     private func setTableView() {
@@ -113,6 +127,34 @@ final class PostDetailViewController: UIViewController {
             .disposed(by: disposeBag)
     }
 
+    @objc func editButtonTapped() {
+        // FIXME: 이 방법 외에 observable의 현재 값을 가져오는 마땅한 방법을 모르겠습니다.
+        var post: Post = Post(id: 0, text: "", user: User(id: 0, userName: ""),
+                              comments: [], createdDate: "") // closure 내에서 초기화 이전에 캡쳐할 수 없어서 임시로 초기화해두었습니다.
+        do {
+            post = try self.postDetailViewModel.post.value()
+        } catch { }
+
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let editAction = UIAlertAction(title: "수정", style: .default) { _ in
+            self.navigationController?.pushViewController(PostWriteViewController(post: post), animated: true)
+        }
+        let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
+            SesacNetwork.shared.deletePost(postId: post.id) { result in
+                switch result {
+                case .success:
+                    DispatchQueue.main.async { self.navigationController?.popViewController(animated: true) }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+
+        [editAction, deleteAction, cancelAction].forEach { actionSheet.addAction($0) }
+        present(actionSheet, animated: true, completion: nil)
+    }
+
     @objc func keyboardWillShow(_ notification: NSNotification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
@@ -160,8 +202,5 @@ extension PostDetailViewController: UITableViewDelegate {
         200
     }
 }
-
-// TODO: 수정 버튼 만들기
-// TODO: 내가 작성한 포스트 아닌 경우에는 수정 버튼 안띄워주기
 
 // TODO: 이것저것 시도하다 token 만료된 경우 navigation의 rootView로 보내기 + 토스트 띄우기 (로그인 시작화면)

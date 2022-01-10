@@ -11,16 +11,20 @@ import RxCocoa
 
 final class PostDetailViewModel {
     let disposeBag = DisposeBag()
-    var postId = 0
+    var postId: Int
+    var postUserId: Int
     var post = BehaviorSubject<Post>(value: Post(id: 0, text: "text",
                                                  user: User(id: 0, userName: "userName"),
                                                  comments: [], createdDate: "1/1"))
     var comments = BehaviorSubject<[DetailComment]>(value: [])
     var returnKeyTapped = PublishSubject<Void>()
     var replyText = PublishSubject<String>()
+    var checkMyPost: Bool
 
     init(post: Post) {
         postId = post.id
+        postUserId = post.user.id
+        checkMyPost = SesacNetwork.shared.id == postUserId
         reloadPost()
         reloadComments()
 
@@ -60,7 +64,7 @@ final class PostDetailViewModel {
             case .success(let comments):
                 self.comments.onNext(comments)
             case .failure(let error):
-                print(error) // TODO: 에러 처리
+                print(error)
             }
         }
     }

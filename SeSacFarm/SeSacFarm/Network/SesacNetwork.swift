@@ -12,6 +12,7 @@ import RxCocoa
 final class SesacNetwork {
     private let session: URLSession // Unit test 진행하게 될 때 대비 (의존성 문제 해결)
     var token: String?
+    var id: Int?
 
     private var defaultComponent: URLComponents {
         var components = URLComponents()
@@ -60,6 +61,7 @@ final class SesacNetwork {
             do {
                 let result = try JSONDecoder().decode(RegisterLoginResult.self, from: data)
                 self.token = result.jwt
+                self.id = result.user.id
                 completion(.success(result))
             } catch {
                 completion(.failure(.jsonConvertingFailed))
@@ -95,6 +97,7 @@ final class SesacNetwork {
             do {
                 let result = try JSONDecoder().decode(RegisterLoginResult.self, from: data)
                 self.token = result.jwt
+                self.id = result.user.id
                 completion(.success(result))
             } catch {
                 completion(.failure(.jsonConvertingFailed))
@@ -261,6 +264,58 @@ final class SesacNetwork {
             completion(.success(()))
         }.resume()
     }
+
+    func updatePost(postId: Int, text: String, completion: @escaping (Result<Void, SesacNetworkError>) -> Void) {
+        guard let url = makeUpdateDeletePostURLComponents(postId: postId).url else {
+            return completion(.failure(.urlConvertFailed))
+        }
+        guard let token = token else {
+            return completion(.failure(.tokenExpired))
+        }
+        var request = makeRequest(method: "PUT", url: url, token: token)
+        request.httpBody = "text=\(text)"
+            .data(using: .utf8, allowLossyConversion: false)
+
+        session.dataTask(with: request) { _, response, error in
+            guard error == nil, let httpResponse = response as? HTTPURLResponse else {
+                return completion(.failure(.unknownError))
+            }
+
+            guard (200...299).contains(httpResponse.statusCode) else {
+                if httpResponse.statusCode == 401 {
+                    return completion(.failure(.tokenExpired))
+                }
+                return completion(.failure(.invalidResponse(statusCode: httpResponse.statusCode)))
+            }
+
+            completion(.success(()))
+        }.resume()
+    }
+
+    func deletePost(postId: Int, completion: @escaping (Result<Void, SesacNetworkError>) -> Void) {
+        guard let url = makeUpdateDeletePostURLComponents(postId: postId).url else {
+            return completion(.failure(.urlConvertFailed))
+        }
+        guard let token = token else {
+            return completion(.failure(.tokenExpired))
+        }
+        let request = makeRequest(method: "DELETE", url: url, token: token)
+
+        session.dataTask(with: request) { _, response, error in
+            guard error == nil, let httpResponse = response as? HTTPURLResponse else {
+                return completion(.failure(.unknownError))
+            }
+
+            guard (200...299).contains(httpResponse.statusCode) else {
+                if httpResponse.statusCode == 401 {
+                    return completion(.failure(.tokenExpired))
+                }
+                return completion(.failure(.invalidResponse(statusCode: httpResponse.statusCode)))
+            }
+
+            completion(.success(()))
+        }.resume()
+    }
 }
 
 private extension SesacNetwork {
@@ -308,6 +363,12 @@ private extension SesacNetwork {
     func makeUploadCommentURLComponents() -> URLComponents {
         var urlComponents = defaultComponent
         urlComponents.path = "/comments"
+        return urlComponents
+    }
+
+    func makeUpdateDeletePostURLComponents(postId: Int) -> URLComponents {
+        var urlComponents = defaultComponent
+        urlComponents.path = "/posts/\(postId.description)"
         return urlComponents
     }
 

@@ -86,7 +86,6 @@ final class PostsViewController: UIViewController {
 
         postAddButton.rx.tap
             .subscribe(onNext: {
-                // TODO: 얘네 두개 뭐가 다른건지 공부, backButton만 고치면 왜 안되는지 공부
                 self.navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "xmark")
                 self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "xmark")
                 self.navigationController?.pushViewController(PostWriteViewController(), animated: true)
