@@ -200,6 +200,7 @@ private extension SesacNetwork {
     func makePostURLComponents() -> URLComponents {
         var urlComponents = defaultComponent
         urlComponents.path = "/posts"
+        urlComponents.queryItems = [URLQueryItem(name: "_sort", value: "created_at:desc")]
         return urlComponents
     }
 
@@ -215,7 +216,6 @@ private extension SesacNetwork {
         request.httpMethod = "GET"
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-
         return request
     }
 }
