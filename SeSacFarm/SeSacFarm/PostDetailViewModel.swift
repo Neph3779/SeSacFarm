@@ -13,9 +13,7 @@ final class PostDetailViewModel {
     let disposeBag = DisposeBag()
     var postId: Int
     var postUserId: Int
-    var post = BehaviorSubject<Post>(value: Post(id: 0, text: "text",
-                                                 user: User(id: 0, userName: "userName"),
-                                                 comments: [], createdDate: "1/1"))
+    var post = BehaviorSubject<Post>(value: Post.default)
     var comments = BehaviorSubject<[DetailComment]>(value: [])
     var returnKeyTapped = PublishSubject<Void>()
     var replyText = PublishSubject<String>()

@@ -35,6 +35,7 @@ final class PostDetailHeaderView: UITableViewHeaderFooterView {
         dateLabel.text = date.convertToDate()
         descriptionLabel.text = description
         replyLabel.text = replyCount.description
+        layoutSubviews()
     }
 
     private func setProfileImageView() {
@@ -46,6 +47,7 @@ final class PostDetailHeaderView: UITableViewHeaderFooterView {
     }
 
     private func setUserNameLabel() {
+        userNameLabel.text = "userName"
         contentView.addSubview(userNameLabel)
         userNameLabel.snp.makeConstraints { label in
             label.leading.equalTo(profileImageView.snp.trailing).offset(10)
@@ -54,6 +56,7 @@ final class PostDetailHeaderView: UITableViewHeaderFooterView {
     }
 
     private func setDateLabel() {
+        dateLabel.text = "dateLabel"
         dateLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         contentView.addSubview(dateLabel)
         dateLabel.snp.makeConstraints { label in
@@ -67,6 +70,7 @@ final class PostDetailHeaderView: UITableViewHeaderFooterView {
     }
 
     private func setDescriptionLabel() {
+        descriptionLabel.text = "description"
         descriptionLabel.numberOfLines = 0
         contentView.addSubview(descriptionLabel)
         descriptionLabel.snp.makeConstraints { label in
@@ -86,7 +90,7 @@ final class PostDetailHeaderView: UITableViewHeaderFooterView {
     }
 
     private func setReplyLabel() {
-        replyLabel.text = "댓글쓰기"
+        replyLabel.text = "reply"
         contentView.addSubview(replyLabel)
         replyLabel.snp.makeConstraints { label in
             label.leading.equalTo(replyImageView.snp.trailing).offset(10)

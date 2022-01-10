@@ -30,6 +30,9 @@
 		32DEF3892782BDE0002D8CD9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DEF3882782BDE0002D8CD9 /* SignUpViewController.swift */; };
 		32E00F7E278ADE4700EB8C3B /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E00F7D278ADE4700EB8C3B /* StringExtension.swift */; };
 		32E00F80278BFCD000EB8C3B /* PostWriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E00F7F278BFCD000EB8C3B /* PostWriteViewModel.swift */; };
+		32E00F82278C55EF00EB8C3B /* CommentModificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E00F81278C55EF00EB8C3B /* CommentModificationViewController.swift */; };
+		32E00F84278C56FD00EB8C3B /* CommentModificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E00F83278C56FD00EB8C3B /* CommentModificationViewModel.swift */; };
+		32E00F86278C69CA00EB8C3B /* SesacNetworkExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E00F85278C69CA00EB8C3B /* SesacNetworkExtension.swift */; };
 		32EE25082786F33000FBD4E7 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EE25072786F33000FBD4E7 /* SignUpViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +59,9 @@
 		32DEF3882782BDE0002D8CD9 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		32E00F7D278ADE4700EB8C3B /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		32E00F7F278BFCD000EB8C3B /* PostWriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostWriteViewModel.swift; sourceTree = "<group>"; };
+		32E00F81278C55EF00EB8C3B /* CommentModificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModificationViewController.swift; sourceTree = "<group>"; };
+		32E00F83278C56FD00EB8C3B /* CommentModificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModificationViewModel.swift; sourceTree = "<group>"; };
+		32E00F85278C69CA00EB8C3B /* SesacNetworkExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SesacNetworkExtension.swift; sourceTree = "<group>"; };
 		32EE25072786F33000FBD4E7 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +112,7 @@
 			children = (
 				321D5D9C2785FAF200476813 /* NetworkModel */,
 				321D5D9627858E8500476813 /* SesacNetwork.swift */,
+				32E00F85278C69CA00EB8C3B /* SesacNetworkExtension.swift */,
 				321D5D9E2785FC3000476813 /* SesacNetworkError.swift */,
 			);
 			path = Network;
@@ -144,6 +151,8 @@
 				32BF04542788005D0025546B /* PostDetailViewController.swift */,
 				32E00F7F278BFCD000EB8C3B /* PostWriteViewModel.swift */,
 				321D5D89278522E400476813 /* PostWriteViewController.swift */,
+				32E00F83278C56FD00EB8C3B /* CommentModificationViewModel.swift */,
+				32E00F81278C55EF00EB8C3B /* CommentModificationViewController.swift */,
 				321D5D9D2785FAFB00476813 /* Network */,
 				321D5D9927859C0000476813 /* SupportingFiles */,
 			);
@@ -252,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				32941E28278278B10084159C /* StartingViewController.swift in Sources */,
+				32E00F86278C69CA00EB8C3B /* SesacNetworkExtension.swift in Sources */,
 				32BF04552788005D0025546B /* PostDetailViewController.swift in Sources */,
 				32BF0459278826890025546B /* PostDetailHeaderView.swift in Sources */,
 				32EE25082786F33000FBD4E7 /* SignUpViewModel.swift in Sources */,
@@ -260,6 +270,7 @@
 				321D5D9B2785A2E800476813 /* Post+User+Comment.swift in Sources */,
 				321D5D842783C79400476813 /* PostCollectionViewCell.swift in Sources */,
 				32E00F7E278ADE4700EB8C3B /* StringExtension.swift in Sources */,
+				32E00F82278C55EF00EB8C3B /* CommentModificationViewController.swift in Sources */,
 				321D5DA5278691C600476813 /* PostsViewModel.swift in Sources */,
 				32E00F80278BFCD000EB8C3B /* PostWriteViewModel.swift in Sources */,
 				32DEF3892782BDE0002D8CD9 /* SignUpViewController.swift in Sources */,
@@ -268,6 +279,7 @@
 				321D5DA32786912700476813 /* PostsViewController.swift in Sources */,
 				321D5D9F2785FC3000476813 /* SesacNetworkError.swift in Sources */,
 				321D5DA12786024300476813 /* RegisterLoginResult.swift in Sources */,
+				32E00F84278C56FD00EB8C3B /* CommentModificationViewModel.swift in Sources */,
 				32BF0457278800B60025546B /* PostDetailViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -20,8 +20,7 @@ final class PostWriteViewController: UIViewController {
     }
 
     required init?(coder: NSCoder) {
-        postWriteViewModel = PostWriteViewModel(post: Post(id: 0, text: "",
-                                                           user: User(id: 0, userName: ""), comments: [], createdDate: ""))
+        postWriteViewModel = PostWriteViewModel(post: Post.default)
         super.init(coder: coder)
     }
 
@@ -43,13 +42,13 @@ final class PostWriteViewController: UIViewController {
     }
 
     private func bind() {
-        Observable.combineLatest(postWriteViewModel.text, navigationItem.rightBarButtonItem!.rx.tap)
+        Observable.combineLatest(postTextView.rx.text, navigationItem.rightBarButtonItem!.rx.tap)
             .subscribe(onNext: { text, _ in
                 if let post = self.postWriteViewModel.post {
                     SesacNetwork.shared.updatePost(postId: post.id, text: self.postTextView.text!,
                                                    completion: self.uploadUpdateCompletion(_:))
                 } else {
-                    SesacNetwork.shared.uploadPost(text: text, completion: self.uploadUpdateCompletion(_:))
+                    SesacNetwork.shared.uploadPost(text: text!, completion: self.uploadUpdateCompletion(_:))
                 }
             })
             .disposed(by: disposeBag)

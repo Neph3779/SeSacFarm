@@ -17,6 +17,11 @@ final class PostDetailViewController: UIViewController {
     private let divisionLine = UIView(frame: .zero)
     private let replyBackgroudnView = UIView(frame: .zero)
     private let replyTextField = UITextField()
+    private let cellAccessoryView: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "ellipsis"), for: .normal)
+        return button
+    }()
 
     init(post: Post) {
         self.postDetailViewModel = PostDetailViewModel(post: post)
@@ -24,9 +29,7 @@ final class PostDetailViewController: UIViewController {
     }
 
     required init?(coder: NSCoder) {
-        self.postDetailViewModel = PostDetailViewModel(post: Post(id: 0, text: "",
-                                                                  user: User(id: 0, userName: ""),
-                                                                  comments: [], createdDate: ""))
+        self.postDetailViewModel = PostDetailViewModel(post: Post.default)
         super.init(coder: coder)
     }
 
@@ -47,9 +50,11 @@ final class PostDetailViewController: UIViewController {
     }
 
     private func setNavigationBar() {
+        navigationItem.backButtonTitle = ""
         if postDetailViewModel.checkMyPost == true {
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis"),
-                                                                style: .plain, target: self, action: #selector(editButtonTapped))
+                                                                style: .plain, target: self,
+                                                                action: #selector(postEditButtonTapped))
         }
     }
 
@@ -115,6 +120,18 @@ final class PostDetailViewController: UIViewController {
                 content.text = model.user.userName
                 content.secondaryText = model.comment
                 cell.contentConfiguration = content
+
+                if SesacNetwork.shared.id == model.user.id {
+                    let button = UIButton(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+                    button.setImage(UIImage(systemName: "ellipsis"), for: .normal)
+                    button.tintColor = .black
+                    button.rx.tap.subscribe(onNext: {
+                        self.commentEditButtonTapped(comment: model)
+                    }).disposed(by: self.disposeBag)
+                    cell.accessoryView = button
+                } else {
+                    cell.accessoryView = nil
+                }
             }
             .disposed(by: disposeBag)
 
@@ -127,10 +144,30 @@ final class PostDetailViewController: UIViewController {
             .disposed(by: disposeBag)
     }
 
-    @objc func editButtonTapped() {
+    private func commentEditButtonTapped(comment: DetailComment) {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let editAction = UIAlertAction(title: "수정", style: .default) { _ in
+            self.navigationController?.pushViewController(CommentModificationViewController(comment: comment), animated: true)
+        }
+        let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
+            SesacNetwork.shared.deleteComment(commentId: comment.id) { result in
+                switch result {
+                case .success:
+                    self.postDetailViewModel.reloadComments()
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+
+        [editAction, deleteAction, cancelAction].forEach { actionSheet.addAction($0) }
+        present(actionSheet, animated: true, completion: nil)
+    }
+
+    @objc func postEditButtonTapped() {
         // FIXME: 이 방법 외에 observable의 현재 값을 가져오는 마땅한 방법을 모르겠습니다.
-        var post: Post = Post(id: 0, text: "", user: User(id: 0, userName: ""),
-                              comments: [], createdDate: "") // closure 내에서 초기화 이전에 캡쳐할 수 없어서 임시로 초기화해두었습니다.
+        var post: Post = Post.default
         do {
             post = try self.postDetailViewModel.post.value()
         } catch { }
@@ -185,9 +222,8 @@ extension PostDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView = tableView
                 .dequeueReusableHeaderFooterView(withIdentifier: PostDetailHeaderView.reuseIdentifier)
-                as? PostDetailHeaderView else {
-                    return UIView()
-                }
+                as? PostDetailHeaderView else { return UIView() }
+
         postDetailViewModel.post
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { post in
