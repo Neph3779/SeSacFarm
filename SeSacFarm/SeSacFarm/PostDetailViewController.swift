@@ -11,9 +11,7 @@ import RxCocoa
 
 final class PostDetailViewController: UIViewController {
     private let disposeBag = DisposeBag()
-    private var postDetailViewModel = PostDetailViewModel(post: Post(id: 0, text: "",
-                                                                     user: User(id: 0, userName: ""),
-                                                                     comments: [], createdDate: ""))
+    private var postDetailViewModel: PostDetailViewModel
     private let tableView = UITableView(frame: .zero, style: .grouped)
     private let replyView = UIView(frame: .zero)
     private let divisionLine = UIView(frame: .zero)
@@ -21,11 +19,14 @@ final class PostDetailViewController: UIViewController {
     private let replyTextField = UITextField()
 
     init(post: Post) {
-        super.init(nibName: nil, bundle: nil)
         self.postDetailViewModel = PostDetailViewModel(post: post)
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
+        self.postDetailViewModel = PostDetailViewModel(post: Post(id: 0, text: "",
+                                                                  user: User(id: 0, userName: ""),
+                                                                  comments: [], createdDate: ""))
         super.init(coder: coder)
     }
 
@@ -150,6 +151,10 @@ extension PostDetailViewController: UITableViewDelegate {
         }).disposed(by: disposeBag)
 
         return headerView
+    }
+
+    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        200
     }
 }
 
