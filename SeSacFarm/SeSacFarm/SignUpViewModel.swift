@@ -65,9 +65,6 @@ final class SignUpViewModel {
         _ = passwordCheckText.map(checkPasswordCheckValid(passwordCheck:))
             .bind(to: isPasswordCheckValid)
         bindPasswordisEqualToPasswordCheck()
-        _ = startButtonTapped.subscribe(onNext: { _ in
-            print("tapped")
-        })
         bindIsValid()
     }
 
