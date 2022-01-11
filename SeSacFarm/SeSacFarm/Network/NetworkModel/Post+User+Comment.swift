@@ -14,8 +14,8 @@ struct Post: Codable {
     let comments: [Comment]
     let createdDate: String
 
-    static let `default` = Post(id: 0, text: "text", user: User(id: 0, userName: "userName"),
-                                comments: [], createdDate: "")
+    static let `default` = Post(id: 0, text: "게시글", user: User(id: 0, userName: "익명"),
+                                comments: [], createdDate: "") // layout이 깨지는 것을 방지하기 위해 반드시 label을 위한 default값이 필요
 
     enum CodingKeys: String, CodingKey {
         case id, text, user, comments

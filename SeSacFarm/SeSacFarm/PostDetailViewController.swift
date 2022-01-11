@@ -113,6 +113,7 @@ final class PostDetailViewController: UIViewController {
     private func bind() {
         postDetailViewModel.comments
             .observe(on: MainScheduler.instance)
+            .catchAndReturn([])
             .bind(to: tableView.rx.items(
                 cellIdentifier: "tableViewCell",
                 cellType: UITableViewCell.self)
@@ -136,6 +137,18 @@ final class PostDetailViewController: UIViewController {
             }
             .disposed(by: disposeBag)
 
+        postDetailViewModel.comments
+            .subscribe(onError: { error in
+                self.loadingErrorAction(error, errorTitle: "댓글 불러오기 실패")
+            })
+            .disposed(by: disposeBag)
+
+        postDetailViewModel.post
+            .subscribe(onError: { error in
+                self.loadingErrorAction(error, errorTitle: "게시글 불러오기 실패")
+            })
+            .disposed(by: disposeBag)
+
         replyTextField.rx.controlEvent(.editingDidEndOnExit)
             .subscribe { _ in
                 self.postDetailViewModel.returnKeyTapped.onNext(())
@@ -155,6 +168,7 @@ final class PostDetailViewController: UIViewController {
                 switch result {
                 case .success:
                     self.postDetailViewModel.reloadComments()
+                    self.postDetailViewModel.reloadPost()
                 case .failure(let error):
                     self.failCompletion(error: error)
                 }
@@ -226,6 +240,7 @@ extension PostDetailViewController: UITableViewDelegate {
 
         postDetailViewModel.post
             .observe(on: MainScheduler.instance)
+            .catchAndReturn(Post.default)
             .subscribe(onNext: { post in
                 headerView.setValues(userName: post.user.userName, date: post.createdDate,
                                      description: post.text, replyCount: post.comments.count)
@@ -251,6 +266,21 @@ extension PostDetailViewController {
             toastStyle.titleAlignment = .center
             self.view.makeToast(error.errorDescription, duration: 2,
                                 position: .bottom, title: "삭제 실패", style: toastStyle, completion: toastCompletion)
+        }
+    }
+
+    fileprivate func loadingErrorAction(_ error: Error, errorTitle: String) {
+        guard let error = error as? SesacNetworkError else { return }
+
+        let toastCompletion: (Bool) -> Void = { _ in
+            if error == .tokenExpired { self.navigationController?.popToRootViewController(animated: true) }
+        }
+
+        DispatchQueue.main.async {
+            var toastStyle = ToastStyle()
+            toastStyle.titleAlignment = .center
+            self.view.makeToast(error.errorDescription, duration: 2,
+                                position: .bottom, title: errorTitle, style: toastStyle, completion: toastCompletion)
         }
     }
 }

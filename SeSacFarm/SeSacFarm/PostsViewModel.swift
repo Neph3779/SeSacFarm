@@ -11,6 +11,7 @@ import RxCocoa
 
 final class PostsViewModel {
     var posts = PublishSubject<[Post]>()
+    let detectError = PublishSubject<Void>()
 
     init() {
         reloadPosts()
@@ -22,7 +23,7 @@ final class PostsViewModel {
             case .success(let resultPosts):
                 self.posts.onNext(resultPosts)
             case .failure(let error):
-                print(error)
+                self.posts.onError(error)
             }
         }
     }

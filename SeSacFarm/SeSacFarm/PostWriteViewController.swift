@@ -80,7 +80,7 @@ extension PostWriteViewController {
             var toastStyle = ToastStyle()
             toastStyle.titleAlignment = .center
             self.view.makeToast(error.errorDescription, duration: 2,
-                                position: .bottom, title: "게시글 수정 실패", style: toastStyle, completion: toastCompletion)
+                                position: .bottom, title: "게시글 업로드 실패", style: toastStyle, completion: toastCompletion)
         }
     }
 }

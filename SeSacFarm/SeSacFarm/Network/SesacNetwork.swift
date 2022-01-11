@@ -9,7 +9,6 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-// TODO: 화면별로 네트워킹을 쪼개기
 final class SesacNetwork {
     private let session: URLSession // Unit test 진행하게 될 때 대비 (의존성 문제 해결)
     private(set) var token: String?

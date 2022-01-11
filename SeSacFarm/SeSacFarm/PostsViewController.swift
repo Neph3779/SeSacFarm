@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import Toast
 
 final class PostsViewController: UIViewController {
     private var postsViewModel = PostsViewModel()
@@ -65,14 +66,19 @@ final class PostsViewController: UIViewController {
     }
 
     private func bind() {
-        postsViewModel.posts.bind(
-            to: postCollectionView.rx.items(
+        postsViewModel.posts
+            .catchAndReturn([])
+            .bind(to: postCollectionView.rx.items(
                 cellIdentifier: PostCollectionViewCell.reuseIdentifier,
                 cellType: PostCollectionViewCell.self)
         ) { _, model, cell in
             cell.setValues(nickname: model.user.userName, description: model.text,
                            date: model.createdDate, replyCount: model.comments.count)
         }.disposed(by: disposeBag)
+
+        postsViewModel.posts.subscribe(onError: { error in
+            self.loadingErrorAction(error)
+        }).disposed(by: disposeBag)
 
         postCollectionView.rx.modelSelected(Post.self)
             .observe(on: MainScheduler.instance)
@@ -101,5 +107,22 @@ extension PostsViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
+    }
+}
+
+extension PostsViewController {
+    fileprivate func loadingErrorAction(_ error: Error) {
+        guard let error = error as? SesacNetworkError else { return }
+
+        let toastCompletion: (Bool) -> Void = { _ in
+            if error == .tokenExpired { self.navigationController?.popToRootViewController(animated: true) }
+        }
+
+        DispatchQueue.main.async {
+            var toastStyle = ToastStyle()
+            toastStyle.titleAlignment = .center
+            self.view.makeToast(error.errorDescription, duration: 2,
+                                position: .bottom, title: "게시글 로딩 실패", style: toastStyle, completion: toastCompletion)
+        }
     }
 }

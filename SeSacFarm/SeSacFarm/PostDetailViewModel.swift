@@ -42,7 +42,7 @@ final class PostDetailViewModel {
                 self.reloadPost()
                 self.reloadComments()
             case .failure(let error):
-                print(error)
+                self.comments.onError(error)
             }
         }
     }
@@ -53,7 +53,7 @@ final class PostDetailViewModel {
             case .success(let post):
                 self.post.onNext(post)
             case .failure(let error):
-                print(error)
+                self.post.onError(error)
             }
         }
     }
@@ -64,7 +64,7 @@ final class PostDetailViewModel {
             case .success(let comments):
                 self.comments.onNext(comments)
             case .failure(let error):
-                print(error)
+                self.comments.onError(error)
             }
         }
     }
