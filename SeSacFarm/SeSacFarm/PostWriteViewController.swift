@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Toast
 
 final class PostWriteViewController: UIViewController {
     private let postWriteViewModel: PostWriteViewModel
@@ -63,7 +64,23 @@ final class PostWriteViewController: UIViewController {
         case .success:
             DispatchQueue.main.async { self.navigationController?.popViewController(animated: true) }
         case .failure(let error):
-            print(error)
+            uploadUpdateFailCompletion(error: error)
+        }
+    }
+}
+
+extension PostWriteViewController {
+    fileprivate func uploadUpdateFailCompletion(error: SesacNetworkError) {
+        let toastCompletion: (Bool) -> Void = { _ in
+            if error == .tokenExpired {
+                self.navigationController?.popToRootViewController(animated: true)
+            }
+        }
+        DispatchQueue.main.async {
+            var toastStyle = ToastStyle()
+            toastStyle.titleAlignment = .center
+            self.view.makeToast(error.errorDescription, duration: 2,
+                                position: .bottom, title: "게시글 수정 실패", style: toastStyle, completion: toastCompletion)
         }
     }
 }

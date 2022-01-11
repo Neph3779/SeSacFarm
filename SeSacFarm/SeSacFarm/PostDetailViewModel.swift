@@ -8,6 +8,8 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import Toast
+import UIKit
 
 final class PostDetailViewModel {
     let disposeBag = DisposeBag()

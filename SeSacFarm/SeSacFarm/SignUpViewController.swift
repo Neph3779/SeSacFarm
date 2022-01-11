@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Toast
 import RxSwift
 
 final class SignUpViewController: UIViewController {
@@ -72,21 +73,31 @@ final class SignUpViewController: UIViewController {
                     if self.signUpViewModel.mode == .signUp {
                         SesacNetwork.shared.register(userName: self.nicknameTextField.text!,
                                                      email: self.emailTextField.text!,
-                                                     password: self.passwordTextField.text!) { _ in
-                            DispatchQueue.main.async {
-                                self.navigationController?.pushViewController(PostsViewController(), animated: true)
-                            }
-                        }
+                                                     password: self.passwordTextField.text!,
+                                                     completion: self.loginRegisterCompletion(_:))
                     } else if self.signUpViewModel.mode == .login {
                         SesacNetwork.shared.login(identifier: self.emailTextField.text!,
-                                                  password: self.passwordTextField.text!) { _ in
-                            DispatchQueue.main.async {
-                                self.navigationController?.pushViewController(PostsViewController(), animated: true)
-                            }
-                        }
+                                                  password: self.passwordTextField.text!,
+                                                  completion: self.loginRegisterCompletion(_:))
                     }
                 })
             .disposed(by: disposeBag)
+    }
+
+    private func loginRegisterCompletion(_ result: Result<RegisterLoginResult, SesacNetworkError>) {
+        switch result {
+        case .success:
+            DispatchQueue.main.async {
+                self.navigationController?.pushViewController(PostsViewController(), animated: true)
+            }
+        case .failure:
+            DispatchQueue.main.async {
+                var toastStyle = ToastStyle()
+                toastStyle.titleAlignment = .center
+                self.view.makeToast("이메일과 비밀번호를 다시 확인해주세요", duration: 2,
+                                    position: .bottom, title: "로그인 실패", style: toastStyle)
+            }
+        }
     }
 
     private func setNavigationBar() {
@@ -131,4 +142,3 @@ final class SignUpViewController: UIViewController {
         signUpStackView.addArrangedSubview(startButton)
     }
 }
-// TODO: 로그인 실패시 뷰 전환 안하고 토스트만 띄워주기

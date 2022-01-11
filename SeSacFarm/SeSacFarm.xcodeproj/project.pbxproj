@@ -33,6 +33,7 @@
 		32E00F82278C55EF00EB8C3B /* CommentModificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E00F81278C55EF00EB8C3B /* CommentModificationViewController.swift */; };
 		32E00F84278C56FD00EB8C3B /* CommentModificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E00F83278C56FD00EB8C3B /* CommentModificationViewModel.swift */; };
 		32E00F86278C69CA00EB8C3B /* SesacNetworkExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E00F85278C69CA00EB8C3B /* SesacNetworkExtension.swift */; };
+		32E00F89278D3AC600EB8C3B /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 32E00F88278D3AC600EB8C3B /* Toast */; };
 		32EE25082786F33000FBD4E7 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EE25072786F33000FBD4E7 /* SignUpViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32E00F89278D3AC600EB8C3B /* Toast in Frameworks */,
 				321D5D8F27858A1C00476813 /* RxSwift in Frameworks */,
 				321D5D8D27858A1C00476813 /* RxCocoa in Frameworks */,
 				32DEF38727827AEC002D8CD9 /* SnapKit in Frameworks */,
@@ -180,6 +182,7 @@
 				32DEF38627827AEC002D8CD9 /* SnapKit */,
 				321D5D8C27858A1C00476813 /* RxCocoa */,
 				321D5D8E27858A1C00476813 /* RxSwift */,
+				32E00F88278D3AC600EB8C3B /* Toast */,
 			);
 			productName = SeSacFarm;
 			productReference = 32941E20278278B10084159C /* SeSacFarm.app */;
@@ -212,6 +215,7 @@
 			packageReferences = (
 				32DEF38527827AEC002D8CD9 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				321D5D8B27858A1C00476813 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				32E00F87278D3AC600EB8C3B /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 			);
 			productRefGroup = 32941E21278278B10084159C /* Products */;
 			projectDirPath = "";
@@ -510,6 +514,14 @@
 				kind = branch;
 			};
 		};
+		32E00F87278D3AC600EB8C3B /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -527,6 +539,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 32DEF38527827AEC002D8CD9 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		32E00F88278D3AC600EB8C3B /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 32E00F87278D3AC600EB8C3B /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

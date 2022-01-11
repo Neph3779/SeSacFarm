@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Toast
 
 final class PostDetailViewController: UIViewController {
     private let disposeBag = DisposeBag()
@@ -155,7 +156,7 @@ final class PostDetailViewController: UIViewController {
                 case .success:
                     self.postDetailViewModel.reloadComments()
                 case .failure(let error):
-                    print(error)
+                    self.failCompletion(error: error)
                 }
             }
         }
@@ -166,9 +167,8 @@ final class PostDetailViewController: UIViewController {
     }
 
     @objc func postEditButtonTapped() {
-        // FIXME: 이 방법 외에 observable의 현재 값을 가져오는 마땅한 방법을 모르겠습니다.
         var post: Post = Post.default
-        do {
+        do { // FIXME: 이 방법 외에 observable의 현재 값을 가져오는 마땅한 방법을 모르겠습니다.
             post = try self.postDetailViewModel.post.value()
         } catch { }
 
@@ -182,7 +182,7 @@ final class PostDetailViewController: UIViewController {
                 case .success:
                     DispatchQueue.main.async { self.navigationController?.popViewController(animated: true) }
                 case .failure(let error):
-                    print(error)
+                    self.failCompletion(error: error)
                 }
             }
         }
@@ -239,4 +239,18 @@ extension PostDetailViewController: UITableViewDelegate {
     }
 }
 
-// TODO: 이것저것 시도하다 token 만료된 경우 navigation의 rootView로 보내기 + 토스트 띄우기 (로그인 시작화면)
+extension PostDetailViewController {
+    fileprivate func failCompletion(error: SesacNetworkError) {
+        let toastCompletion: (Bool) -> Void = { _ in
+            if error == .tokenExpired {
+                self.navigationController?.popToRootViewController(animated: true)
+            }
+        }
+        DispatchQueue.main.async {
+            var toastStyle = ToastStyle()
+            toastStyle.titleAlignment = .center
+            self.view.makeToast(error.errorDescription, duration: 2,
+                                position: .bottom, title: "삭제 실패", style: toastStyle, completion: toastCompletion)
+        }
+    }
+}

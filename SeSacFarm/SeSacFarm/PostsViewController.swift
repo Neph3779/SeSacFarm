@@ -103,4 +103,3 @@ extension PostsViewController: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
     }
 }
-// TODO: 페이지네이션 구현하기

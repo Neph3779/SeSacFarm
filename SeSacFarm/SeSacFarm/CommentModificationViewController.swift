@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Toast
 
 final class CommentModificationViewController: UIViewController {
     private let commentModificationViewModel: CommentModificationViewModel
@@ -68,7 +69,23 @@ final class CommentModificationViewController: UIViewController {
         case .success:
             DispatchQueue.main.async { self.navigationController?.popViewController(animated: true) }
         case .failure(let error):
-            print(error)
+            uploadUpdateFailCompletion(error: error)
+        }
+    }
+}
+
+extension CommentModificationViewController {
+    fileprivate func uploadUpdateFailCompletion(error: SesacNetworkError) {
+        let toastCompletion: (Bool) -> Void = { _ in
+            if error == .tokenExpired {
+                self.navigationController?.popToRootViewController(animated: true)
+            }
+        }
+        DispatchQueue.main.async {
+            var toastStyle = ToastStyle()
+            toastStyle.titleAlignment = .center
+            self.view.makeToast(error.errorDescription, duration: 2,
+                                position: .bottom, title: "댓글 수정 실패", style: toastStyle, completion: toastCompletion)
         }
     }
 }
