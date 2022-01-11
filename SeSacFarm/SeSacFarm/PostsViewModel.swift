@@ -11,7 +11,6 @@ import RxCocoa
 
 final class PostsViewModel {
     var posts = PublishSubject<[Post]>()
-    let detectError = PublishSubject<Void>()
 
     init() {
         reloadPosts()
