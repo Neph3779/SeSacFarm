@@ -3,7 +3,11 @@
 - Rxswift의 사용
 - MVVM을 통한 View, ViewModel의 분리 (화면 전환은 Coordinator 패턴을 차후에 학습 후 적용 예정)
 
+### 페이지네이션과 관련한 내용
 
+- 페이지네이션은 이전에도 몇차례 구현한 적이 있기에 이번과제에서는 생략하고 다른 파트에 더 집중했습니다.
+- offest.y를 확인하여 일정 위치에 도달했을 때 새로운 데이터를 불러와서 cell을 추가해주는 것이 가장 잘 적용되었습니다. (tableview, collectionview delegate를 이용하는 방법은 불안정한 경우가 많았습니다.)
+- rxswift를 안쓸때는 일정 위치에서 데이터를 불러오고 datasource에 데이터 추가, reload등의 과정이 동기적으로 이루어지는게 중요했지만 rx가 있으니 onNext이벤트로 datasource만 추가해줘도 잘 적용될 것입니다.
 
 ### 피드백을 받고 싶은 부분
 
